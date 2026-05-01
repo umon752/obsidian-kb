@@ -60,9 +60,10 @@ obsidian-kb/
 ---
 type: "source | entity | concept | comparison | overview | query"
 author: "human | ai | collaborative"
-tags: ["tag1", "tag2"]
-summary: "一句話說明這頁的核心內容"
+tags: ["domain/xxx", "topic/yyy"]
+summary: "一句話說明這頁的核心內容（≤ 60 字）"
 sources: ["raw/xxx.pdf", "raw/yyy.md"]
+created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
 ---
 ```
@@ -73,19 +74,64 @@ updated: "YYYY-MM-DD"
 - `collaborative` — 使用者建立後經 AI 修改，或反之
 - AI 編輯 `author: human` 的頁面時，**必須**將值改為 `collaborative`
 
+**`summary` 規則**：
+- 長度上限：60 字（中文）/ 100 words（英文）
+- 必須獨立可讀，不依賴 wikilink，方便未來 RAG metadata filtering
+- 壞範例：`"見 [[concepts/概念_xxx]]"` ✗
+- 好範例：`"費曼學習法是一種透過向他人講解來深化理解的學習技巧"` ✓
+
+### Tags 分類體系
+使用 `namespace/值` 格式，確保未來 RAG 篩選時 tags 有結構：
+
+| Namespace | 說明 | 範例 |
+|-----------|------|------|
+| `domain/` | 知識領域 | `domain/ai`、`domain/教育`、`domain/商業` |
+| `topic/` | 具體主題 | `topic/LLM`、`topic/費曼學習法` |
+| `status/` | 頁面狀態 | `status/draft`、`status/stable`、`status/outdated` |
+
+- 每頁至少填一個 `domain/` 和一個 `topic/`
+- `status/` 選填；新建頁面預設 `status/draft`，經 lint 確認後改為 `status/stable`
+
 ---
 
-## 3. 頁面類型格式
+## 3. 頁面顆粒度規範
 
-### 3.1 Source（來源摘要）
+> 顆粒度直接影響未來 RAG 的召回品質，請嚴格遵守。
+
+### 3.1 頁面大小限制
+- **建議**：每頁正文 ≤ 600 字（中文）
+- **上限**：正文 ≤ 1000 字；超過時**必須拆頁**
+- 計算範圍：不含 frontmatter、wikilink 列表、程式碼區塊
+
+### 3.2 何時拆頁
+以下情況需拆分為多個獨立頁面：
+- 單頁超過 4 個 H2 section
+- 一個 H2 section 內容超過 300 字
+- 一頁同時描述兩個可以獨立存在的概念 / 實體
+
+拆頁方式：建立子頁面並在原頁加上 `[[子頁面]]` 連結，原頁保留摘要段落。
+
+### 3.3 Section 自包含原則
+每個 H2 section 必須**不依賴其他頁面即可理解**：
+- ✗ `"詳見 [[concepts/概念_xxx]]"` — 只留連結沒有說明
+- ✓ `"費曼學習法（[[concepts/概念_費曼學習法]]）是一種透過向他人講解來深化理解的方法"` — 先說明再附連結
+- 原則：wikilink 是「延伸閱讀」，不是「必須點進去才能理解」的依賴
+
+---
+
+## 4. 頁面類型格式
+
+### 4.1 Source（來源摘要）
 路徑：`wiki/sources/xxx.md`
 
 ```markdown
 ---
 type: source
 author: ai
+tags: ["domain/xxx", "topic/yyy", "status/draft"]
 summary: ""
 sources: ["raw/xxx"]
+created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
 ---
 
@@ -104,15 +150,17 @@ updated: "YYYY-MM-DD"
 - [[concepts/概念_yyy]]
 ```
 
-### 3.2 Entity（實體頁）
+### 4.2 Entity（實體頁）
 路徑：`wiki/entities/人物_xxx.md`
 
 ```markdown
 ---
 type: entity
 author: ai
+tags: ["domain/xxx", "topic/yyy", "status/draft"]
 summary: ""
 sources: []
+created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
 ---
 
@@ -131,15 +179,17 @@ updated: "YYYY-MM-DD"
 - [[concepts/概念_yyy]]
 ```
 
-### 3.3 Concept（概念頁）
+### 4.3 Concept（概念頁）
 路徑：`wiki/concepts/概念_xxx.md`
 
 ```markdown
 ---
 type: concept
 author: ai
+tags: ["domain/xxx", "topic/yyy", "status/draft"]
 summary: ""
 sources: []
+created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
 ---
 
@@ -159,15 +209,17 @@ updated: "YYYY-MM-DD"
 - [[sources/xxx]]
 ```
 
-### 3.4 Comparison（比較頁）
+### 4.4 Comparison（比較頁）
 路徑：`wiki/comparisons/比較_xxx_vs_yyy.md`
 
 ```markdown
 ---
 type: comparison
 author: ai
+tags: ["domain/xxx", "topic/yyy", "status/draft"]
 summary: ""
 sources: []
+created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
 ---
 
@@ -187,15 +239,17 @@ updated: "YYYY-MM-DD"
 ## 結論 / 選擇建議
 ```
 
-### 3.5 Overview（總覽 / 綜述）
+### 4.5 Overview（總覽 / 綜述）
 路徑：`wiki/overview/主題_xxx_綜述.md`
 
 ```markdown
 ---
 type: overview
 author: ai
+tags: ["domain/xxx", "topic/yyy", "status/draft"]
 summary: ""
 sources: []
+created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
 ---
 
@@ -214,9 +268,9 @@ updated: "YYYY-MM-DD"
 
 ---
 
-## 4. 操作流程
+## 5. 操作流程
 
-### 4.1 Ingest（匯入新素材）
+### 5.1 Ingest（匯入新素材）
 
 當使用者說「ingest raw/xxx」：
 
@@ -233,7 +287,7 @@ updated: "YYYY-MM-DD"
    - 重點：<一句話>
    ```
 
-### 4.2 Query（查詢）
+### 5.2 Query（查詢）
 
 當使用者提問：
 
@@ -247,7 +301,7 @@ updated: "YYYY-MM-DD"
    - 是否歸檔：是（wiki/xxx.md）/ 否
    ```
 
-### 4.3 Lint（健康檢查）
+### 5.3 Lint（健康檢查）
 
 當使用者說「lint wiki」：
 
@@ -270,7 +324,7 @@ updated: "YYYY-MM-DD"
 
 ---
 
-## 5. 工具使用建議
+## 6. 工具使用建議
 
 - **查找筆記間關係**（wikilink、tags、frontmatter、雙向連結）：優先使用 obsidian-cli（若可用），比通用文字搜尋更精確
 - **搜尋頁面內容**：`grep` 搭配 `wiki/` 路徑
@@ -279,7 +333,7 @@ updated: "YYYY-MM-DD"
 
 ---
 
-## 6. log.md 格式規範
+## 7. log.md 格式規範
 
 - **只增不改** — 永遠在末尾新增，不修改既有紀錄
 - 標題格式：`## [YYYY-MM-DD] <操作類型> | <標題>`
