@@ -19,7 +19,7 @@ tags:
 ## 0. 邊界原則
 
 1. `raw/` 唯讀 — 永不修改 raw/ 的任何檔案
-2. 只在 `wiki/` 建立與修改 Markdown 頁面
+2. 只在 `wiki/` 建立與修改 Markdown 頁面；在 `notes/` 生成人類可讀版本
 3. **不確定時，先提議再執行** — 不做大規模自動改動，先列出「將新增/修改哪些頁面」由使用者確認
 
 ---
@@ -40,10 +40,51 @@ obsidian-kb/
 │   ├── queries/             # 值得保存的問答與分析
 │   ├── index.md             # 全 Wiki 目錄（可用 Obsidian 視圖替代）
 │   └── log.md               # Append-only 操作紀錄
+├── notes/                   # 人類可讀版（Agent 於 ingest 時自動生成）
+│   ├── index.md             # Notes 索引（供人類瀏覽）
+│   └── <主題>.md            # 每個主題一頁（多個 wiki 頁合併）
 ├── schema.md                # 本說明書
 ├── AGENTS.md                # 指向 schema.md（Codex 入口）
 └── CLAUDE.md                # 指向 schema.md（Claude 入口）
 ```
+
+---
+
+## 1.1 notes/ 層：人類可讀版
+
+`notes/` 是 `wiki/` 的伴侶層，提供同一份知識的**人類閱讀版本**。
+
+| 維度 | wiki/ | notes/ |
+|------|-------|--------|
+| 讀者 | LLM（機器導航） | 人類（直接閱讀） |
+| 顆粒度 | 細碎、一概念一頁 | 聚合、一主題一頁 |
+| Frontmatter | 完整（RAG 用） | 最簡（title + updated + wiki_refs） |
+| 字數限制 | ≤ 1000 字 | 無限制 |
+| 風格 | 結構化 bullet | 散文 + 說明文字 |
+| 由誰維護 | Agent | Agent（ingest 時自動同步） |
+
+### Frontmatter 格式
+
+```yaml
+---
+title: "主題名稱"
+updated: "YYYY-MM-DD"
+wiki_refs:
+  - wiki/entities/工具_xxx.md
+  - wiki/guides/設定_xxx.md
+---
+```
+
+### 命名規則
+- 格式：`notes/<主題>.md`，中文主題名，無前綴
+- 對應關係：一個主題（通常對應一份 raw 素材）→ 一頁 notes
+- 範例：`notes/VSCode完整設定.md`、`notes/AI工具安全設定.md`
+
+### 頁面結構（自由）
+- 以**讀者視角**組織內容（不拘泥 entity/concept/guide 分類）
+- 建議流程：簡介 → 核心概念 → 操作步驟 → 附錄
+- 代碼區塊、表格、callout 可自由使用
+- wikilink 可選擇性加入（供想深入的讀者跳轉）
 
 ---
 
