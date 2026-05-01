@@ -36,4 +36,10 @@
 
 ---
 
+chrome 擴充：https://chromewebstore.google.com/detail/obsidian-web-clipper/cnjifjpddelmedmihgijeibhnjfabmlf
+
+obsidian skills：https://github.com/kepano/obsidian-skills/tree/main
+
+---
+
 *最後更新：2026-05-01*
