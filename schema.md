@@ -34,6 +34,7 @@ obsidian-kb/
 │   ├── sources/             # 每份原始素材一頁摘要
 │   ├── entities/            # 人物、書籍、工具等實體頁
 │   ├── concepts/            # 方法、理論、模型等概念頁
+│   ├── guides/              # 設定、操作、工具使用步驟頁
 │   ├── comparisons/         # 比較分析頁
 │   ├── overview/            # 主題總覽、綜述頁
 │   ├── queries/             # 值得保存的問答與分析
@@ -58,7 +59,7 @@ obsidian-kb/
 ### Frontmatter 標準格式
 ```yaml
 ---
-type: "source | entity | concept | comparison | overview | query"
+type: "source | entity | concept | guide | comparison | overview | query"
 author: "human | ai | collaborative"
 tags: ["domain/xxx", "topic/yyy"]
 summary: "一句話說明這頁的核心內容（≤ 60 字）"
@@ -266,9 +267,51 @@ updated: "YYYY-MM-DD"
 ## 未決問題 / 待驗證假設
 ```
 
+### 4.6 Guide（設定 / 操作指南）
+路徑：`wiki/guides/設定_xxx.md`
+
+```markdown
+---
+type: guide
+author: ai
+tags: ["domain/xxx", "topic/yyy", "status/draft"]
+summary: ""
+sources: ["raw/xxx.md"]
+created: "YYYY-MM-DD"
+updated: "YYYY-MM-DD"
 ---
 
-## 5. 操作流程
+# 設定 / 操作標題
+
+## 前置條件
+- 需要安裝 / 準備的工具或環境
+
+## 步驟
+1. 步驟一
+2. 步驟二（截圖說明見 `raw/assets/xxx/`）
+
+## 注意事項
+- 常見錯誤、版本限制等
+
+## 相關工具 / 頁面
+- [[entities/工具_xxx]]
+- [[concepts/概念_yyy]]
+```
+
+> **截圖處理原則**：截圖統一放 `raw/assets/`，guide 頁面以文字描述為主，截圖路徑作為補充參考。這樣 RAG chunking 時不會被圖片中斷。
+
+---
+
+### 4.7 歸類對照表（Notion 筆記 → wiki）
+
+| raw 筆記類型 | wiki 目錄 | type |
+|---|---|---|
+| 工具安裝 / 設定步驟 | `guides/設定_xxx.md` | `guide` |
+| 工具是什麼、為什麼用 | `entities/工具_xxx.md` | `entity` |
+| 方法論 / 使用技巧 | `concepts/概念_xxx.md` | `concept` |
+| 多個工具 / 方法比較 | `comparisons/比較_xxx_vs_yyy.md` | `comparison` |
+
+---
 
 ### 5.1 Ingest（匯入新素材）
 
