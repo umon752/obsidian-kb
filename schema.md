@@ -59,12 +59,19 @@ obsidian-kb/
 ```yaml
 ---
 type: "source | entity | concept | comparison | overview | query"
+author: "human | ai | collaborative"
 tags: ["tag1", "tag2"]
 summary: "一句話說明這頁的核心內容"
 sources: ["raw/xxx.pdf", "raw/yyy.md"]
 updated: "YYYY-MM-DD"
 ---
 ```
+
+**`author` 規則**：
+- `human` — 完全由使用者建立，AI 未修改過
+- `ai` — 完全由 AI 建立（ingest / query 產出）
+- `collaborative` — 使用者建立後經 AI 修改，或反之
+- AI 編輯 `author: human` 的頁面時，**必須**將值改為 `collaborative`
 
 ---
 
@@ -76,6 +83,7 @@ updated: "YYYY-MM-DD"
 ```markdown
 ---
 type: source
+author: ai
 summary: ""
 sources: ["raw/xxx"]
 updated: "YYYY-MM-DD"
@@ -102,6 +110,7 @@ updated: "YYYY-MM-DD"
 ```markdown
 ---
 type: entity
+author: ai
 summary: ""
 sources: []
 updated: "YYYY-MM-DD"
@@ -128,6 +137,7 @@ updated: "YYYY-MM-DD"
 ```markdown
 ---
 type: concept
+author: ai
 summary: ""
 sources: []
 updated: "YYYY-MM-DD"
@@ -155,6 +165,7 @@ updated: "YYYY-MM-DD"
 ```markdown
 ---
 type: comparison
+author: ai
 summary: ""
 sources: []
 updated: "YYYY-MM-DD"
@@ -182,6 +193,7 @@ updated: "YYYY-MM-DD"
 ```markdown
 ---
 type: overview
+author: ai
 summary: ""
 sources: []
 updated: "YYYY-MM-DD"
