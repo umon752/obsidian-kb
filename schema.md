@@ -7,6 +7,7 @@ tags:
   - knowledge-management
 ---
 
+
 # Schema — LLM Wiki 操作說明
 
 > **核心目標**：維護 `wiki/` 目錄，將其打造為可複利的知識層。
@@ -320,17 +321,41 @@ updated: "YYYY-MM-DD"
 
 1. **檢查檔名與路徑**：若檔名或其所在資料夾名稱以 `_` 開頭，立即停止並回覆「略過 `raw/xxx`（名稱以 `_` 開頭）」，不做任何 wiki 操作
 2. 讀取 `raw/xxx`，提煉要點，與使用者簡短確認重點
-2. 在 `wiki/sources/` 新建或更新摘要頁
-3. 更新或建立相關 entity / concept 頁
-4. 如有需要新建 comparison 或 overview 頁，**先提議再執行**
-5. 更新 `wiki/index.md`（加入新頁面條目）
-6. 在 `wiki/log.md` 末尾追加：
+3. 在 `wiki/sources/` 新建或更新摘要頁
+4. 更新或建立相關 entity / concept 頁
+5. 如有需要新建 comparison 或 overview 頁，**先提議再執行**
+6. 更新 `wiki/index.md`（加入新頁面條目）
+7. 在 `wiki/log.md` 末尾追加：
    ```
    ## [YYYY-MM-DD] ingest | raw/xxx → wiki/sources/xxx.md (+ 受影響頁面)
    - 新增：...
    - 更新：...
    - 重點：<一句話>
    ```
+
+#### 批次 Ingest（`ingest /raw` 或資料夾路徑）
+
+當使用者指定整個資料夾（如 `ingest /raw`）：
+
+1. **建立待處理清單**：掃描目標資料夾下所有 `.md` 檔（遞迴），排除檔名或資料夾名稱以 `_` 開頭者
+2. **比對已 ingest 狀態**：讀取所有 `wiki/sources/` 頁面的 `sources` frontmatter，找出已有對應 source 頁的 raw 路徑
+3. **偵測已修改的檔案**：執行 `git diff --name-only HEAD -- raw/` 與 `git status --short -- raw/`，找出自上次 commit 後有變更的 raw 檔案
+4. **將檔案分為三類**：
+   - **新檔案**（`wiki/sources/` 無對應頁）→ 完整執行步驟 2–7
+   - **已修改檔案**（有對應 source 頁，且 git 顯示有變更）→ 標記為「建議重新 ingest」，列入確認清單
+   - **未變更的已 ingest 檔案**（有對應 source 頁，git 無變更）→ **跳過**
+5. **列出清單請使用者確認**後再執行，格式如下：
+   ```
+   待 ingest（新）：N 個
+   - raw/xxx.md
+
+   建議重新 ingest（內容已修改）：N 個
+   - raw/yyy.md（→ wiki/sources/yyy.md，git 顯示有變更）
+
+   已略過（未變更）：N 個
+   - raw/zzz.md（→ wiki/sources/zzz.md）
+   ```
+6. 使用者確認後，依序處理；每處理完一批（或全部）在 `wiki/log.md` 追加一筆紀錄
 
 ### 5.2 Query（查詢）
 
