@@ -1,0 +1,40 @@
+{
+  "recentFiles": [
+    {
+      "basename": "_README",
+      "path": "raw/_README.md"
+    },
+    {
+      "basename": "自訂規範",
+      "path": "raw/文件/自訂規範.md"
+    },
+    {
+      "basename": "Other",
+      "path": "raw/文件/Other.md"
+    },
+    {
+      "basename": "schema",
+      "path": "schema.md"
+    },
+    {
+      "basename": "CLAUDE",
+      "path": "CLAUDE.md"
+    },
+    {
+      "basename": "AGENTS",
+      "path": "AGENTS.md"
+    },
+    {
+      "basename": "obsidian-plugins",
+      "path": "temp/30-resources/obsidian-plugins.md"
+    },
+    {
+      "basename": "obsidian-vault-index",
+      "path": "temp/obsidian-vault-index.md"
+    }
+  ],
+  "omittedPaths": [],
+  "omittedTags": [],
+  "updateOn": "file-open",
+  "omitBookmarks": false
+}

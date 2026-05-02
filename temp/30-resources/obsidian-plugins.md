@@ -36,9 +36,8 @@
 
 ---
 
-chrome 擴充：https://chromewebstore.google.com/detail/obsidian-web-clipper/cnjifjpddelmedmihgijeibhnjfabmlf
-
-obsidian skills：https://github.com/kepano/obsidian-skills/tree/main
+* chrome 擴充：[Obsidian Web Clipper](https://chromewebstore.google.com/detail/obsidian-web-clipper/cnjifjpddelmedmihgijeibhnjfabmlf)
+* [obsidian skills](https://github.com/kepano/obsidian-skills/tree/main)
 
 ---
 

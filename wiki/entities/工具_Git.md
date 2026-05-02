@@ -26,6 +26,8 @@ updated: "2026-05-01"
 
 ## 相關來源
 - [[sources/Git設定]]
+- [[sources/Git開發協作流程]]
 
 ## 相關指南
 - [[guides/設定_Git設定檔]]
+- [[guides/設定_Git開發協作流程]]

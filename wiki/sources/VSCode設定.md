@@ -3,7 +3,7 @@ type: source
 author: collaborative
 tags: ["domain/devtools", "topic/vscode", "status/draft"]
 summary: "記錄個人 VS Code 的 Settings、Extensions（輔助/Sass/外觀/Git/AI/語言）、MCP 整合與 JS/Sass/Vue Snippets"
-sources: ["raw/VS Code 2b3b9bff19ce80ccbc63de9ad1532196.md"]
+sources: ["raw/安裝/VS Code.md"]
 created: "2026-05-01"
 updated: "2026-05-01"
 ---

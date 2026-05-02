@@ -1,5 +1,9 @@
 [
   "obsidian-git",
   "obsidian-custom-attachment-location",
-  "terminal"
+  "terminal",
+  "settings-search",
+  "recent-files-obsidian",
+  "tag-wrangler",
+  "omnisearch"
 ]

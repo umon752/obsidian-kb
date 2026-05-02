@@ -3,7 +3,7 @@ type: source
 author: collaborative
 tags: ["domain/devtools", "domain/ai", "topic/安全設定", "status/draft"]
 summary: "記錄 Claude Code 與 Cursor 的安全設定檔位置、permissions 規則、sandbox 設定與安全規範守則"
-sources: ["raw/AI 安全設定檔 334b9bff19ce80928529f7e31d9e2567.md"]
+sources: ["raw/安裝/AI 安全設定檔.md"]
 created: "2026-05-01"
 updated: "2026-05-01"
 ---

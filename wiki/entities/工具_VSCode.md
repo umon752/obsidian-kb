@@ -21,6 +21,7 @@ Microsoft 開發的跨平台輕量程式碼編輯器，透過 Extensions Marketp
 
 ## 相關來源
 - [[sources/VSCode設定]]
+- [[sources/快捷鍵_VSCode]]
 
 ## 相關指南
 - [[guides/設定_VSCode_基本設定]]
