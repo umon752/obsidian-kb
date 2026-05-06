@@ -23,3 +23,7 @@ _(紀錄從此開始)_
 - 更新 sources 路徑：AI安全設定檔、Chrome擴充、Git設定、VSCode設定、管理工具軟體（hash 路徑 → raw/安裝/）
 - 更新 entities：工具_VSCode（+快捷鍵來源）、工具_Git（+協作流程來源與指南）
 - 重點：前端開發工具快捷鍵、CSS 技巧、Git 協作、弱點掃描、無障礙、設計規範、Laravel 語法
+
+## [2026-05-07] gn notes | raw/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md → wiki/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md
+- 新增：Skill 實戰教學，從製作到維護的完整指南
+- 重點：skill 製作時機、description 三規則、執行心法優於死板 SOP、references/scripts 結構、維護策略

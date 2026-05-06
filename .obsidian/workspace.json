@@ -1,0 +1,315 @@
+{
+  "main": {
+    "id": "64a100c24e237f1f",
+    "type": "split",
+    "children": [
+      {
+        "id": "d788d06978af6d5d",
+        "type": "split",
+        "children": [
+          {
+            "id": "f151f398387f8a45",
+            "type": "tabs",
+            "dimension": 58.30546265328874,
+            "children": [
+              {
+                "id": "28da070800de7799",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "wiki/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Skill 實戰教學，從製作到維護的完整指南"
+                }
+              }
+            ]
+          },
+          {
+            "id": "a26aede8b933e5d7",
+            "type": "tabs",
+            "dimension": 41.69453734671126,
+            "children": [
+              {
+                "id": "64404a1f5954a7f0",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "terminal:terminal",
+                  "state": {
+                    "terminal:terminal": {
+                      "cwd": "/Users/liyijie/Documents/前端/project/obsidian-kb",
+                      "focus": false,
+                      "profile": {
+                        "args": [
+                          "--login"
+                        ],
+                        "executable": "/bin/zsh",
+                        "followTheme": true,
+                        "name": "",
+                        "platforms": {
+                          "darwin": true
+                        },
+                        "pythonExecutable": "python3",
+                        "restoreHistory": false,
+                        "rightClickAction": "copyPaste",
+                        "successExitCodes": [
+                          "0",
+                          "SIGINT",
+                          "SIGTERM"
+                        ],
+                        "terminalOptions": {
+                          "documentOverride": null
+                        },
+                        "type": "integrated",
+                        "useWin32Conhost": true
+                      },
+                      "serial": null
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "terminal",
+                  "title": "終端：🤖 Committing and pushing changes"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal"
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "9e9cf5fa12efe7e0",
+    "type": "split",
+    "children": [
+      {
+        "id": "1dc940e2f04471d4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f27ef5b13e72c0ae",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "檔案瀏覽器"
+            }
+          },
+          {
+            "id": "1da9a5c70fe3483e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜尋"
+            }
+          },
+          {
+            "id": "1dc2a12e9894895c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "書籤"
+            }
+          },
+          {
+            "id": "07c965c155bd9129",
+            "type": "leaf",
+            "state": {
+              "type": "recent-files",
+              "state": {},
+              "icon": "clock",
+              "title": "Recent Files"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 258.50418853759766
+  },
+  "right": {
+    "id": "e339c25f6644175f",
+    "type": "split",
+    "children": [
+      {
+        "id": "db70cf7a0b5e537b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dfa966e2e2f415c9",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "test.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "test 的反向連結"
+            }
+          },
+          {
+            "id": "1cf5a6ea274321a0",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "test.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "test 的對外連結"
+            }
+          },
+          {
+            "id": "e14c68967abd09b9",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "標籤"
+            }
+          },
+          {
+            "id": "9ac195d97974f36e",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "所有屬性"
+            }
+          },
+          {
+            "id": "b43e49c0f3264798",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "大綱"
+            }
+          },
+          {
+            "id": "c0aa2c588a0290d7",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:開啟快速切換": false,
+      "graph:查看關聯圖": false,
+      "canvas:建立新畫布": false,
+      "daily-notes:開啟今天的每日筆記": false,
+      "templates:插入模板": false,
+      "command-palette:開啟命令面板": false,
+      "bases:建立新的 base": false,
+      "obsidian-git:Open Git source control": false,
+      "terminal:Open terminal": false,
+      "omnisearch:Omnisearch": false
+    }
+  },
+  "active": "64404a1f5954a7f0",
+  "lastOpenFiles": [
+    "wiki/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md",
+    "wiki/overview/overview.md",
+    "wiki/index.md",
+    "wiki/notes/AI",
+    "schema.md",
+    "raw/_README.md",
+    "raw/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md",
+    "raw/notes/Nuxt",
+    "raw/notes/未命名檔案夾",
+    "raw/notes/AI",
+    "wiki/sources/各服務Guideline.md",
+    "raw/_template/note_template.md",
+    "wiki/notes",
+    "raw/notes",
+    "raw/_template",
+    "raw/assets",
+    "raw/未命名檔案夾",
+    "wiki/entities/工具_VSCode.md",
+    "raw/安裝/Chrome 擴充.md",
+    "temp/temp.md",
+    "temp/ob-rag/30-resources",
+    "temp/ob-rag/tpl-resource.md",
+    "temp/ob-rag/tpl-project-index.md",
+    "temp/ob-rag/tpl-how-to.md",
+    "temp/ob-rag/tpl-concept.md",
+    "temp/ob-rag/tpl-concept-rag-style.md",
+    "temp/ob-rag/obsidian-vault-index.md",
+    "temp/ob-rag/obsidian-rag-format-guide.md",
+    "temp/ob-rag/什麼是 RAG（檢索增強生成）.md",
+    "temp/ob-rag/30-resources/obsidian-plugins.md",
+    "wiki/guides/CSS_文字外框技巧.md",
+    "wiki/guides/設定_Sitemap網站擁有權認證.md",
+    "wiki/guides/設定_Git開發協作流程.md",
+    "wiki/guides/弱點掃描前端規範.md",
+    "wiki/concepts/概念_BEM命名規範.md",
+    "wiki/concepts/概念_網頁設計規範.md",
+    "raw/文件/Git 開發協作流程/assets/git-flow.png",
+    "raw/文件/Git 開發協作流程/assets/%E6%88%AA%E5%9C%96_2024-05-29_%E4%B8%8A%E5%8D%889.29.31.png",
+    "raw/文件/Git 開發協作流程/assets/%E6%88%AA%E5%9C%96_2024-05-27_%E4%B8%8A%E5%8D%8811.21.56.png",
+    "raw/文件/網頁設計基本指南/assets/截圖_2024-12-10_晚上7.16.26.png",
+    "raw/文件/網頁設計基本指南/assets/截圖_2024-12-10_下午6.57.48.png",
+    "raw/文件/Sitemap、網站擁有權認證/assets/image.png",
+    "raw/語法/Laravel Blade 語法/assets/截圖_2026-01-19_下午5.15.30.png",
+    "raw/文件/ExportBlock-abe9ace9-8563-4065-99df-2c7b40abcc50-Part-1/assets/image.png",
+    "raw/文件/ExportBlock-710e8fef-1900-4d99-b2b3-e80803cefc1d-Part-1/assets/截圖_2024-12-10_晚上7.16.26.png",
+    "raw/文件/ExportBlock-710e8fef-1900-4d99-b2b3-e80803cefc1d-Part-1/assets/截圖_2024-12-10_下午6.57.48.png",
+    "未命名.canvas"
+  ]
+}

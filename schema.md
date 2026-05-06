@@ -31,7 +31,11 @@ tags:
 ```
 obsidian-kb/
 ├── raw/                     # 原始素材（PDF、網頁 md、圖片），唯讀
-│   └── assets/              # 文章附圖（本機存放）
+│   ├── notes/               # 學習知識素材（影片逐字稿、筆記文字檔）
+│   │   └── <子路徑>/<標題>.md
+│   ├── <其他子資料夾>/      # 依主題分類的一般素材
+│   │   └── assets/<筆記名>/# 該筆記的附圖（由插件自動管理）
+│   └── ...
 ├── wiki/                    # LLM 全權維護
 │   ├── sources/             # 每份原始素材一頁摘要
 │   ├── entities/            # 人物、書籍、工具等實體頁
@@ -39,6 +43,8 @@ obsidian-kb/
 │   ├── guides/              # 設定、操作、工具使用步驟頁
 │   ├── comparisons/         # 比較分析頁
 │   ├── overview/            # 主題總覽、綜述頁
+│   ├── notes/               # 學習單（路徑鏡像 raw/notes/）
+│   │   └── <子路徑>/<標題>.md
 │   ├── queries/             # 值得保存的問答與分析
 │   ├── index.md             # 全 Wiki 目錄（可用 Obsidian 視圖替代）
 │   └── log.md               # Append-only 操作紀錄
@@ -300,7 +306,7 @@ updated: "YYYY-MM-DD"
 - [[concepts/概念_yyy]]
 ```
 
-> **截圖處理原則**：截圖統一放 `raw/assets/`，guide 頁面以文字描述為主，截圖路徑作為補充參考。這樣 RAG chunking 時不會被圖片中斷。
+> **截圖處理原則**：截圖與附件依所屬筆記就近存放，路徑為 `raw/<子路徑>/assets/<筆記名稱>/`（由 Custom Attachment Location 插件自動管理）。guide 頁面以文字描述為主，截圖路徑作為補充參考。這樣 RAG chunking 時不會被圖片中斷。
 
 ---
 
@@ -312,6 +318,41 @@ updated: "YYYY-MM-DD"
 | 工具是什麼、為什麼用 | `entities/工具_xxx.md` | `entity` |
 | 方法論 / 使用技巧 | `concepts/概念_xxx.md` | `concept` |
 | 多個工具 / 方法比較 | `comparisons/比較_xxx_vs_yyy.md` | `comparison` |
+| 學習知識（影片逐字稿、學習筆記） | `notes/<子路徑>/<標題>.md` | `note` |
+
+---
+
+### 4.8 Note（學習單）
+路徑：`wiki/notes/<子路徑>/<標題>.md`（鏡像 `raw/notes/` 的子路徑）
+
+```markdown
+---
+type: note
+author: ai
+tags: ["domain/xxx", "topic/yyy", "status/draft"]
+summary: ""
+sources: ["raw/notes/<子路徑>/<標題>.md"]
+created: "YYYY-MM-DD"
+updated: "YYYY-MM-DD"
+---
+
+# 標題
+
+## 摘要
+
+## 核心概念
+- （條列關鍵知識點）
+
+## 實作步驟 / 操作方法
+
+## 重要引文 / 範例
+
+## 關聯頁面
+- [[concepts/概念_xxx]]
+- [[guides/設定_xxx]]
+```
+
+> Template 位置：`.github/skills/learning-notes/references/template.md`
 
 ---
 
@@ -333,9 +374,9 @@ updated: "YYYY-MM-DD"
    - 重點：<一句話>
    ```
 
-#### 批次 Ingest（`ingest /raw` 或資料夾路徑）
+#### 批次 Ingest（`ingest`、`ingest raw`、`ingest /raw` 或子資料夾路徑，均視為等同）
 
-當使用者指定整個資料夾（如 `ingest /raw`）：
+當使用者輸入 `ingest`、`ingest raw`、`ingest /raw` 或指定子資料夾（如 `ingest raw/文件`）：
 
 1. **建立待處理清單**：掃描目標資料夾下所有 `.md` 檔（遞迴），排除檔名或資料夾名稱以 `_` 開頭者
 2. **比對已 ingest 狀態**：讀取所有 `wiki/sources/` 頁面的 `sources` frontmatter，找出已有對應 source 頁的 raw 路徑
@@ -357,7 +398,20 @@ updated: "YYYY-MM-DD"
    ```
 6. 使用者確認後，依序處理；每處理完一批（或全部）在 `wiki/log.md` 追加一筆紀錄
 
-### 5.2 Query（查詢）
+### 5.3 Note（產出學習單）
+
+> 詳細工作流程由 **learning-notes skill** 處理（`.github/skills/learning-notes/SKILL.md`）。
+
+觸發指令：`gn notes`、`gn notes <子路徑>/`、`gn notes <子路徑>/<標題>.md`，或使用者提到「產出筆記」、「建立筆記」、「生筆記」、「create notes」、「generate notes」
+
+- 素材來源：`raw/notes/<子路徑>/<標題>.md`
+- template：`.github/skills/learning-notes/references/template.md`
+- 輸出路徑：`wiki/notes/<子路徑>/<標題>.md`（鏡像 `raw/notes/` 結構）
+- 完成後更新 `wiki/index.md` 並在 `wiki/log.md` 追加紀錄
+
+---
+
+### 5.4 Query（查詢）
 
 當使用者提問：
 
@@ -371,7 +425,43 @@ updated: "YYYY-MM-DD"
    - 是否歸檔：是（wiki/xxx.md）/ 否
    ```
 
-### 5.3 Lint（健康檢查）
+### 5.4 Update README（更新專案說明）
+
+當使用者說「update README」：
+
+1. **讀取現有 `raw/_README.md`** 了解目前內容結構
+2. **掃描 `.obsidian/` 取得最新狀態**：
+   - `.obsidian/community-plugins.json` — 已啟用的 community plugin 清單
+   - `.obsidian/plugins/*/manifest.json` — 各插件的 `name`、`description`
+   - `.obsidian/plugins/*/data.json` — 各插件的設定（如 attachment 路徑、git 行為等）
+   - `.obsidian/core-plugins.json` — 已啟用的 core plugin 清單
+3. **比對差異**：找出 `_README.md` 插件表格中缺少的插件、已移除的插件、設定描述不正確的地方
+4. **列出將要變更的項目，請使用者確認後再動手**，格式如下：
+   ```
+   將新增至插件表格：
+   - omnisearch（Omnisearch）— A search engine that just works
+   - ...
+
+   將更新描述：
+   - obsidian-custom-attachment-location — 路徑改為 ./assets/${noteFileName}/
+
+   將移除（已停用）：
+   - （若有）
+   ```
+5. 使用者確認後，**就地更新 `raw/_README.md`** 的插件段落，不修改其他段落
+6. 在 `wiki/log.md` 末尾追加：
+   ```
+   ## [YYYY-MM-DD] update README
+   - 新增插件：...
+   - 更新描述：...
+   - 移除插件：...
+   ```
+
+> **注意**：`raw/_README.md` 以 `_` 開頭，屬於專案說明文件，不受 ingest 規則約束，可直接修改。
+
+---
+
+### 5.6 Lint（健康檢查）
 
 當使用者說「lint wiki」：
 

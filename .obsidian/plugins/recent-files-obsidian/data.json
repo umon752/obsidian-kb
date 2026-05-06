@@ -1,8 +1,36 @@
 {
   "recentFiles": [
     {
+      "basename": "Skill 實戰教學，從製作到維護的完整指南",
+      "path": "wiki/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md"
+    },
+    {
+      "basename": "overview",
+      "path": "wiki/overview/overview.md"
+    },
+    {
+      "basename": "index",
+      "path": "wiki/index.md"
+    },
+    {
+      "basename": "schema",
+      "path": "schema.md"
+    },
+    {
       "basename": "_README",
       "path": "raw/_README.md"
+    },
+    {
+      "basename": "各服務Guideline",
+      "path": "wiki/sources/各服務Guideline.md"
+    },
+    {
+      "basename": "工具_VSCode",
+      "path": "wiki/entities/工具_VSCode.md"
+    },
+    {
+      "basename": "Chrome 擴充",
+      "path": "raw/安裝/Chrome 擴充.md"
     },
     {
       "basename": "自訂規範",
@@ -13,24 +41,12 @@
       "path": "raw/文件/Other.md"
     },
     {
-      "basename": "schema",
-      "path": "schema.md"
-    },
-    {
       "basename": "CLAUDE",
       "path": "CLAUDE.md"
     },
     {
       "basename": "AGENTS",
       "path": "AGENTS.md"
-    },
-    {
-      "basename": "obsidian-plugins",
-      "path": "temp/30-resources/obsidian-plugins.md"
-    },
-    {
-      "basename": "obsidian-vault-index",
-      "path": "temp/obsidian-vault-index.md"
     }
   ],
   "omittedPaths": [],
