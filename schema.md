@@ -49,6 +49,7 @@ obsidian-kb/
 │   ├── index.md             # 全 Wiki 目錄（可用 Obsidian 視圖替代）
 │   └── log.md               # Append-only 操作紀錄
 ├── schema.md                # 本說明書
+├── README.md                # 專案說明（給人類閱讀）
 ├── AGENTS.md                # 指向 schema.md（Codex 入口）
 └── CLAUDE.md                # 指向 schema.md（Claude 入口）
 ```
@@ -429,7 +430,7 @@ updated: "YYYY-MM-DD"
 
 當使用者說「update README」：
 
-1. **讀取現有 `raw/_README.md`** 了解目前內容結構
+1. **讀取現有 `README.md`** 了解目前內容結構
 2. **掃描 `.obsidian/` 取得最新狀態**：
    - `.obsidian/community-plugins.json` — 已啟用的 community plugin 清單
    - `.obsidian/plugins/*/manifest.json` — 各插件的 `name`、`description`
@@ -448,7 +449,7 @@ updated: "YYYY-MM-DD"
    將移除（已停用）：
    - （若有）
    ```
-5. 使用者確認後，**就地更新 `raw/_README.md`** 的插件段落，不修改其他段落
+5. 使用者確認後，**就地更新 `README.md`** 的插件段落，不修改其他段落
 6. 在 `wiki/log.md` 末尾追加：
    ```
    ## [YYYY-MM-DD] update README
@@ -457,7 +458,7 @@ updated: "YYYY-MM-DD"
    - 移除插件：...
    ```
 
-> **注意**：`raw/_README.md` 以 `_` 開頭，屬於專案說明文件，不受 ingest 規則約束，可直接修改。
+> **注意**：`README.md` 位於專案根目錄，屬於專案說明文件，不受 ingest 規則約束，可直接修改。
 
 ---
 
