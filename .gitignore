@@ -1,2 +1,13 @@
 .DS_Store
 **/.DS_Store
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Large source files
+*.pdf
+**/*.pdf
+
+# Obsidian local workspace state
+.obsidian/workspace.json

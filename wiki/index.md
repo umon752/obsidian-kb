@@ -27,6 +27,9 @@
 | 頁面 | 摘要 |
 |------|------|
 | [[concepts/概念_AI工具安全規範]] | AI Coding Agent 的 allow/ask/deny 三層權限模型與安全守則 |
+| [[concepts/概念_TypeScript_Utility Types]] | Pick、Omit、Partial、Record 等 TS 工具型別對照表與選用決策 |
+| [[concepts/概念_Nuxt_資料獲取]] | `$fetch` vs `useFetch` vs `useAsyncData` 選用決策流程與常見陷阱 |
+| [[concepts/概念_Nuxt_SEO_Meta]] | `useSeoMeta` vs `useServerSeoMeta` 比較與 SEO Meta 最佳實踐 |
 | [[concepts/概念_BEM命名規範]] | CSS BEM 命名法：Block、Element、Modifier 結構 |
 | [[concepts/概念_弱點掃描CSP規範]] | CSP meta 設定與前端弱點掃描合規要點 |
 | [[concepts/概念_無障礙設計規範]] | WCAG 無障礙設計原則與前端實作要點 |
@@ -89,6 +92,11 @@
 | 頁面 | 摘要 |
 |------|------|
 | [[notes/AI/Skill 實戰教學，從製作到維護的完整指南]] | 介紹如何判斷製作 skill 的時機、兩種製作方法、description 寫法、常見踩坑點，以及長期維護 skill 的策略 |
+| [[notes/安裝/AI安全設定檔]] | 整理 Claude Code、Cursor 與 Codex 的安全設定檔位置、權限規則與敏感資料保護方式 |
+| [[notes/Nuxt/Nuxt3 高效入門全攻略]] | 從環境設定到完整應用的 Nuxt3 全攻略，涵蓋目錄結構、SSR、資料獲取、SEO、Pinia、Server API、i18n 與部署 |
+| [[notes/Nuxt/關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！]] | 大型 Nuxt 專案從 Nuxt2 升至 Nuxt4 的實戰紀錄，涵蓋效能優化、資安地雷、UnoCSS 遷移與 AI 輔助重構 |
+| [[notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維]] | TypeScript 完整課程：基礎型別、Utility Types、泛型非同步、Vue3 整合與 tsconfig 設定 |
+| [[notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR]] | Vue SSR 五大踩坑：渲染順序、async currentInstance、Suspense 延遲卸載、axios vs $fetch、memory leak 與跨請求污染 |
 
 ---
 

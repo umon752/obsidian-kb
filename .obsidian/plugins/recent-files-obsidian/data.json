@@ -1,6 +1,38 @@
 {
   "recentFiles": [
     {
+      "basename": "README",
+      "path": "README.md"
+    },
+    {
+      "basename": "AI 安全設定檔",
+      "path": "raw/安裝/AI 安全設定檔.md"
+    },
+    {
+      "basename": "從入門到被開除 90% 的前端工程師都寫錯的 SSR",
+      "path": "wiki/notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR.md"
+    },
+    {
+      "basename": "從入門到被開除 90% 的前端工程師都寫錯的 SSR",
+      "path": "raw/notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR.md"
+    },
+    {
+      "basename": "關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！",
+      "path": "wiki/notes/Nuxt/關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！.md"
+    },
+    {
+      "basename": "Nuxt3 高效入門全攻略",
+      "path": "wiki/notes/Nuxt/Nuxt3 高效入門全攻略.md"
+    },
+    {
+      "basename": "六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維",
+      "path": "wiki/notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維.md"
+    },
+    {
+      "basename": "schema",
+      "path": "schema.md"
+    },
+    {
       "basename": "Skill 實戰教學，從製作到維護的完整指南",
       "path": "wiki/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md"
     },
@@ -11,14 +43,6 @@
     {
       "basename": "index",
       "path": "wiki/index.md"
-    },
-    {
-      "basename": "schema",
-      "path": "schema.md"
-    },
-    {
-      "basename": "_README",
-      "path": "raw/_README.md"
     },
     {
       "basename": "各服務Guideline",

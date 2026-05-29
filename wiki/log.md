@@ -27,3 +27,23 @@ _(紀錄從此開始)_
 ## [2026-05-07] gn notes | raw/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md → wiki/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md
 - 新增：Skill 實戰教學，從製作到維護的完整指南
 - 重點：skill 製作時機、description 三規則、執行心法優於死板 SOP、references/scripts 結構、維護策略
+
+## [2026-05-10] gn notes | raw/notes/Nuxt/*.pdf, raw/notes/TS/*.pdf → wiki/notes/
+- 新增：Nuxt3 高效入門全攻略
+- 重點：Nuxt3 目錄結構、Auto Import、資料獲取三劍客、SEO Meta、runtimeConfig、MongoDB 整合
+- 新增：關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！
+- 重點：Nuxt2→4 升級實戰、vite.define 資安地雷、FOUC 防護、效能優化組合技、Spec-Driven AI 開發
+- 新增：六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維
+- 重點：型別推論優先、any vs unknown、Utility Types 組合技、泛型 API 封裝、Vue3 + TS 整合
+
+## [2026-05-17] gn notes | raw/notes/Nuxt/20260517_從入門到被開除 90% 的前端工程師都寫錯的 SSR.md → wiki/notes/Nuxt/20260517_從入門到被開除 90% 的前端工程師都寫錯的 SSR.md
+- 新增：從入門到被開除 — 90% 前端工程師都寫錯的 SSR
+- 重點：SSR 渲染由外而內不可逆、async currentInstance 丟失、Suspense 延遲卸載、memory leak 與跨請求污染四大陷阱
+
+## [2026-05-28] gn notes | raw/notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR.md → wiki/notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR.md
+- 更新：從入門到被開除 — 90% 前端工程師都寫錯的 SSR（補充雲端簡報內容）
+- 重點：補上問題四（axios vs $fetch：SSR 相對路徑 Invalid URL、ofetch function call 優化），修正問題計數四→五，來源路徑修正
+
+## [2026-05-29] gn notes | raw/安裝/AI 安全設定檔.md → wiki/notes/安裝/AI安全設定檔.md
+- 新增：AI安全設定檔
+- 重點：整理 Claude Code、Cursor 與 Codex 的全域安全設定、sandbox、ignore 檔與權限規則
