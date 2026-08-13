@@ -26,6 +26,7 @@ AI-first 程式碼編輯器，支援 AI 補全、對話與程式碼生成。
 
 ## 相關來源
 - [[sources/AI安全設定檔]]
+- [[sources/Note_AI安全設定檔]]
 
 ## 相關概念
 - [[concepts/概念_AI工具安全規範]]

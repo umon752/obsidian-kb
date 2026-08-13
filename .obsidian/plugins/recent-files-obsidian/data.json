@@ -1,30 +1,6 @@
 {
   "recentFiles": [
     {
-      "basename": "README",
-      "path": "README.md"
-    },
-    {
-      "basename": "AI 安全設定檔",
-      "path": "raw/安裝/AI 安全設定檔.md"
-    },
-    {
-      "basename": "從入門到被開除 90% 的前端工程師都寫錯的 SSR",
-      "path": "wiki/notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR.md"
-    },
-    {
-      "basename": "從入門到被開除 90% 的前端工程師都寫錯的 SSR",
-      "path": "raw/notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR.md"
-    },
-    {
-      "basename": "關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！",
-      "path": "wiki/notes/Nuxt/關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！.md"
-    },
-    {
-      "basename": "Nuxt3 高效入門全攻略",
-      "path": "wiki/notes/Nuxt/Nuxt3 高效入門全攻略.md"
-    },
-    {
       "basename": "六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維",
       "path": "wiki/notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維.md"
     },
@@ -33,8 +9,56 @@
       "path": "schema.md"
     },
     {
+      "basename": "README",
+      "path": "README.md"
+    },
+    {
+      "basename": "實現",
+      "path": "raw/_待辦任務/實現.md"
+    },
+    {
+      "basename": "debug",
+      "path": "raw/Nuxt/debug.md"
+    },
+    {
+      "basename": "Codex 常用",
+      "path": "raw/AI/Codex/Codex 常用.md"
+    },
+    {
+      "basename": "JSON-LD（JavaScript Object Notation for Linked Data）",
+      "path": "raw/SEO/JSON-LD（JavaScript Object Notation for Linked Data）.md"
+    },
+    {
+      "basename": "robots-and-canonical",
+      "path": "raw/Nuxt/robots-and-canonical.md"
+    },
+    {
+      "basename": "PWA",
+      "path": "raw/Nuxt/PWA.md"
+    },
+    {
+      "basename": "Agentic_Browsing_與_llms.txt_重點整理",
+      "path": "raw/GEO/Agentic_Browsing_與_llms.txt_重點整理.md"
+    },
+    {
+      "basename": "深潛 Vue 3 響應式系統：解析依賴追蹤與效能設計",
+      "path": "raw/notes/Nuxt/深潛 Vue 3 響應式系統：解析依賴追蹤與效能設計.md"
+    },
+    {
+      "basename": "AGENTS",
+      "path": "AGENTS.md"
+    },
+    {
+      "basename": "AI 安全設定檔",
+      "path": "raw/安裝/AI 安全設定檔.md"
+    },
+    {
+      "basename": "從入門到被開除 90% 的前端工程師都寫錯的 SSR",
+      "path": "raw/notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR.md"
+    },
+    {
       "basename": "Skill 實戰教學，從製作到維護的完整指南",
-      "path": "wiki/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md"
+      "path": "raw/notes/AI/Skill 實戰教學，從製作到維護的完整指南.md"
     },
     {
       "basename": "overview",
@@ -67,10 +91,6 @@
     {
       "basename": "CLAUDE",
       "path": "CLAUDE.md"
-    },
-    {
-      "basename": "AGENTS",
-      "path": "AGENTS.md"
     }
   ],
   "omittedPaths": [],

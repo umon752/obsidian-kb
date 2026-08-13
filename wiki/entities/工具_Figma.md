@@ -3,7 +3,7 @@ type: entity
 author: ai
 tags: ["domain/design", "topic/figma", "status/draft"]
 summary: "Figma 是以瀏覽器為基礎的協作設計工具，為團隊主要 UI/UX 設計工具"
-sources: []
+sources: ["raw/AI/Figma MCP.md", "raw/課程/用Figma打造絕佳UI:UX.md"]
 created: "2026-05-02"
 updated: "2026-05-02"
 ---
@@ -26,3 +26,5 @@ Figma 是以瀏覽器為基礎的向量設計與原型製作工具，支援多�
 ## 相關來源
 - [[sources/快捷鍵_Figma]]
 - [[sources/網頁設計基本指南]]
+- [[sources/Figma MCP]]
+- [[sources/課程_用Figma打造絕佳UIUX]]

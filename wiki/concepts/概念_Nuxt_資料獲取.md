@@ -38,3 +38,8 @@ Nuxt3 提供三種資料獲取方式，各有適用場景，混用容易造成 S
 
 ## 與其他概念的關係
 - 相關筆記：[[notes/Nuxt/Nuxt3 高效入門全攻略]]
+
+## 相關來源
+- [[sources/Note_Nuxt3高效入門全攻略]]
+- [[sources/Note_Nuxt SSR五大陷阱]]
+- [[sources/Note_Socket即時資料治理]]

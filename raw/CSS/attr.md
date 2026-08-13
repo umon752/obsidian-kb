@@ -1,0 +1,5 @@
+# attr()   
+- [Can I use](https://caniuse.com/?search=attr)   
+- [MDN](https://developer.mozilla.org/zh-CN/docs/Web/CSS/attr)   
+- [CSS-TRICKS](https://css-tricks.com/almanac/functions/a/attr/)   
+- [Youtube](https://www.youtube.com/watch?v=WcNWf6edIcc)   

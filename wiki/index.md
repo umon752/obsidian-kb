@@ -18,6 +18,8 @@
 | [[entities/工具_nvm]] | 跨平台 Node.js 版本管理工具 |
 | [[entities/工具_Figma]] | 網頁設計協作工具，設計稿共享與 Dev Mode |
 | [[entities/工具_Laravel]] | PHP MVC 框架，Blade 模板引擎 |
+| [[entities/工具_Docker]] | 以容器封裝應用程式與依賴的開發與部署工具 |
+| [[entities/工具_Nuxt]] | Vue 全端框架，提供 SSR、路由、SEO 與 Nitro server |
 
 ---
 
@@ -67,6 +69,105 @@
 | [[sources/PHP語法]] | reference | PHP 語法備忘錄 |
 | [[sources/字符]] | reference | 常用特殊字符對照表 |
 
+### 2026-08-13 批次匯入
+
+| 頁面 | 來源類型 | 摘要 |
+|------|----------|------|
+| [[sources/Codex常用]] | guide | Codex 常用指令與工作流程 |
+| [[sources/ChromeDevToolsMCP]] | reference | Chrome DevTools MCP 與瀏覽器除錯整合 |
+| [[sources/Cursor Memory Bank]] | guide | Cursor Memory Bank 的上下文記憶與專案規範 |
+| [[sources/Figma MCP]] | guide | Figma MCP 的設計稿與程式碼協作方式 |
+| [[sources/MCP模型上下文協定]] | reference | MCP 的工具、資源與模型上下文協定概念 |
+| [[sources/CSS_attr]] | reference | CSS `attr()` 讀取 HTML 屬性值 |
+| [[sources/CSS_backdrop]] | reference | CSS backdrop filter 與背景效果 |
+| [[sources/CSS_border-image]] | reference | CSS border-image 邊框圖片設定 |
+| [[sources/CSS_box-shadow]] | reference | CSS box-shadow 陰影語法與效果 |
+| [[sources/CSS_columns]] | reference | CSS 多欄版面配置 |
+| [[sources/CSS_counter]] | reference | CSS counter 自動編號 |
+| [[sources/CSS_display]] | reference | CSS display 顯示模式與版面行為 |
+| [[sources/CSS_grid]] | reference | CSS Grid 網格版面配置 |
+| [[sources/CSS_has]] | reference | CSS `:has()` 父層條件選擇器 |
+| [[sources/CSS_hyphens]] | reference | CSS hyphens 文字斷字控制 |
+| [[sources/CSS_inset]] | reference | CSS inset 簡寫定位屬性 |
+| [[sources/CSS_min-max-clamp]] | reference | CSS min、max、clamp 響應式尺寸 |
+| [[sources/CSS_oklch]] | reference | CSS oklch 色彩函數 |
+| [[sources/CSS_overflow-behavior]] | reference | CSS overflow 行為與捲動控制 |
+| [[sources/CSS_overflow-wrap]] | reference | CSS overflow-wrap 長字串換行 |
+| [[sources/CSS_resize]] | reference | CSS resize 可調整尺寸控制 |
+| [[sources/CSS_scroll-snap]] | reference | CSS scroll snap 捲動吸附 |
+| [[sources/CSS_text-wrap]] | reference | CSS text-wrap 文字換行策略 |
+| [[sources/CSS_transition-behavior]] | reference | CSS transition-behavior 離散屬性轉場 |
+| [[sources/CSS_white-space]] | reference | CSS white-space 空白與換行行為 |
+| [[sources/CSS_word-break]] | reference | CSS word-break 斷字規則 |
+| [[sources/Docker]] | guide | Docker 容器、映像與常用工作流程 |
+| [[sources/GEO_Agentic Browsing與llms.txt]] | reference | Agentic browsing 與 `llms.txt` 的 GEO 應用 |
+| [[sources/GEO_生成式引擎優化]] | reference | 生成式引擎優化與 AI 可引用內容 |
+| [[sources/GEO_PageSpeed分數與AI引用]] | reference | PageSpeed 指標與 AI 引用的關聯 |
+| [[sources/HTML_inert]] | reference | HTML `inert` 停用互動與 focus |
+| [[sources/HTML_selectedcontent]] | reference | HTML selectedcontent 與原生 select 客製化 |
+| [[sources/JS_ajax]] | reference | AJAX 非同步請求與資料更新 |
+| [[sources/JS_variable-naming]] | standard | JavaScript 變數命名原則 |
+| [[sources/JS_encapsulation]] | concept | JavaScript 封裝與模組邊界 |
+| [[sources/JS_functional-programming]] | concept | JavaScript 函數式程式設計概念 |
+| [[sources/JS_copy]] | reference | JavaScript 淺拷貝、深拷貝與結構化複製 |
+| [[sources/JS_iterable]] | reference | JavaScript iterable 與 iterator 協定 |
+| [[sources/JS_resource-priority]] | reference | JavaScript 與瀏覽器資源優先級 |
+| [[sources/JS_event-loop]] | concept | JavaScript event loop 與非同步執行 |
+| [[sources/JS_storage]] | reference | Web Storage 與瀏覽器資料保存 |
+| [[sources/JS_design-principles]] | standard | JavaScript 設計原則與可維護性 |
+| [[sources/JS_event]] | reference | DOM event 與事件處理 |
+| [[sources/JS_page-lifecycle]] | reference | 網頁生命週期與頁面事件 |
+| [[sources/JS_rendering-modes]] | concept | CSR、SSR、SSG 與混合渲染模式 |
+| [[sources/JS_searchParams]] | reference | URLSearchParams 查詢參數操作 |
+| [[sources/JS_SOLID]] | concept | JavaScript SOLID 設計原則 |
+| [[sources/JS_performance]] | guide | JavaScript 效能分析與優化 |
+| [[sources/JS_types-and-operators]] | reference | JavaScript 型別與運算子 |
+| [[sources/JS_algorithm]] | reference | JavaScript 演算法與資料處理 |
+| [[sources/JS_prototype]] | concept | JavaScript prototype 與繼承 |
+| [[sources/JS_project-architecture]] | guide | JavaScript 專案架構與模組分層 |
+| [[sources/Nuxt_PWA]] | guide | PWA 能力、manifest 設定與導入工具 |
+| [[sources/Nuxt_debug]] | guide | Nuxt 產生型別清理與 VS Code 除錯 |
+| [[sources/Nuxt_robots-and-canonical]] | guide | Nuxt robots 與 canonical 的配置分工 |
+| [[sources/Nuxt_template-base]] | guide | Nuxt 模板工具鏈與目錄基礎設定 |
+| [[sources/Nuxt_template-header]] | guide | 後端選單驅動 Nuxt Header 的實作模式 |
+| [[sources/React_dispatch]] | reference | React dispatch 與狀態更新流程 |
+| [[sources/React_hook]] | concept | React Hooks 使用規則與設計 |
+| [[sources/React_JSX]] | reference | React JSX 語法與轉譯概念 |
+| [[sources/React_component]] | concept | React component 拆分與組合 |
+| [[sources/React_router]] | guide | React Router 路由管理 |
+| [[sources/React_tanstack]] | guide | TanStack 工具在 React 專案的應用 |
+| [[sources/React_useContext]] | reference | React `useContext` 共用狀態 |
+| [[sources/React_useEffect]] | reference | React `useEffect` 副作用管理 |
+| [[sources/React_useId]] | reference | React `useId` 唯一識別值 |
+| [[sources/React_useImperativeHandle]] | reference | React `useImperativeHandle` 命令式介面 |
+| [[sources/React_memo-hooks-performance]] | guide | React memo、Hooks 與效能優化 |
+| [[sources/React_useReducer]] | reference | React `useReducer` 複雜狀態管理 |
+| [[sources/React_useRef]] | reference | React `useRef` 保存值與 DOM 參照 |
+| [[sources/React_useState]] | reference | React `useState` 基礎狀態管理 |
+| [[sources/SEO_JSON-LD]] | reference | JSON-LD 與 Schema.org 結構化資料 |
+| [[sources/SEO_GA]] | guide | Data Layer、GTM、GA4 與報表資料流 |
+| [[sources/SEO_Schema]] | reference | Google 結構化資料與 Schema.org 參考 |
+| [[sources/SEO_duplicate-urls]] | guide | 重複網址與 canonical 收錄策略 |
+| [[sources/SEO_redirect]] | guide | HTTP 狀態碼與 redirect 選擇 |
+| [[sources/TS_from-JS-to-TS]] | guide | JavaScript 遷移 TypeScript 的方法 |
+| [[sources/TS_packages]] | reference | TypeScript 套件與型別宣告 |
+| [[sources/TS_config]] | guide | `tsconfig` 專案編譯與檢查設定 |
+| [[sources/TS_Zod]] | reference | Zod schema 與 TypeScript 驗證 |
+| [[sources/TS_import-JS]] | guide | TypeScript 專案匯入 JavaScript |
+| [[sources/TS_global-types]] | reference | TypeScript global types 宣告 |
+| [[sources/TS_Node-types]] | reference | Node.js 型別與 TypeScript |
+| [[sources/TS_basics]] | reference | TypeScript 基礎型別與型別系統 |
+| [[sources/Note_Skill實戰教學]] | note | Skill 設計、漸進揭露與評估導向維護 |
+| [[sources/Note_Nuxt3高效入門全攻略]] | note | Nuxt 3 目錄、SSR、資料獲取與部署 |
+| [[sources/Note_Socket即時資料治理]] | note | 多分頁 Socket 與即時資料一致性治理 |
+| [[sources/Note_Nuxt SSR五大陷阱]] | note | Nuxt SSR 五個常見陷阱與修正方向 |
+| [[sources/Note_Vue3響應式系統]] | note | Vue 3 effect、依賴追蹤與效能設計 |
+| [[sources/Note_Nuxt升級與AI整合]] | note | Nuxt 升級、效能優化與 Spec-Driven AI |
+| [[sources/Note_TypeScript實戰課]] | note | TypeScript 型別思維與 Vue 整合 |
+| [[sources/Note_AI安全設定檔]] | note | AI 工具權限、sandbox 與機密資料防護 |
+| [[sources/無障礙_AccessKey與SkipLink]] | standard | AccessKey、Skip Link 與鍵盤無障礙 |
+| [[sources/課程_用Figma打造絕佳UIUX]] | course | Figma、UI 與 UX 課程入口與學習素材 |
+
 ---
 
 ## Guides（設定 / 操作指南）
@@ -91,12 +192,14 @@
 
 | 頁面 | 摘要 |
 |------|------|
-| [[notes/AI/Skill 實戰教學，從製作到維護的完整指南]] | 介紹如何判斷製作 skill 的時機、兩種製作方法、description 寫法、常見踩坑點，以及長期維護 skill 的策略 |
-| [[notes/安裝/AI安全設定檔]] | 整理 Claude Code、Cursor 與 Codex 的安全設定檔位置、權限規則與敏感資料保護方式 |
-| [[notes/Nuxt/Nuxt3 高效入門全攻略]] | 從環境設定到完整應用的 Nuxt3 全攻略，涵蓋目錄結構、SSR、資料獲取、SEO、Pinia、Server API、i18n 與部署 |
-| [[notes/Nuxt/關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！]] | 大型 Nuxt 專案從 Nuxt2 升至 Nuxt4 的實戰紀錄，涵蓋效能優化、資安地雷、UnoCSS 遷移與 AI 輔助重構 |
-| [[notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維]] | TypeScript 完整課程：基礎型別、Utility Types、泛型非同步、Vue3 整合與 tsconfig 設定 |
-| [[notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR]] | Vue SSR 五大踩坑：渲染順序、async currentInstance、Suspense 延遲卸載、axios vs $fetch、memory leak 與跨請求污染 |
+| [[notes/AI/Skill 實戰教學，從製作到維護的完整指南]] | 把個人執行邏輯與領域判斷轉移給 agent，建立可觸發、穩定且可維護的 skill |
+| [[notes/安裝/AI安全設定檔]] | 以預設限制、機密封鎖與高風險確認管理 AI coding agent 安全邊界 |
+| [[notes/Nuxt/Nuxt3 高效入門全攻略]] | 從 Nuxt 3 目錄與 SSR 出發，掌握資料獲取、SEO、狀態管理、Server API 與部署基礎 |
+| [[notes/Nuxt/關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！]] | 整理 Nuxt2 至 Nuxt4 的升級決策、資安、效能、CSS 遷移與 Spec-Driven AI 實戰 |
+| [[notes/Nuxt/Socket 即時資料治理]] | 以連線所有權、跨分頁協調與錯峰更新降低即時系統成本 |
+| [[notes/Nuxt/深潛 Vue 3 響應式系統：解析依賴追蹤與效能設計]] | 用 effect、track、trigger 與動態依賴清理理解 Vue 3 響應式更新 |
+| [[notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維]] | 從型別推論、unknown、泛型與 Utility Types 建立 TypeScript 與 Vue 3 型別思維 |
+| [[notes/Nuxt/從入門到被開除 90% 的前端工程師都寫錯的 SSR]] | 用五個案例理解 SSR 的一次性輸出、async context、Suspense、URL 與跨請求記憶體陷阱 |
 
 ---
 

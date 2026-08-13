@@ -1,349 +1,179 @@
 ---
 type: note
 author: ai
-tags: ['typescript', 'typescript/generics', 'typescript/utility-types', 'typescript/vue', 'status/draft']
-summary: '六角學院 TypeScript 實戰課，從基礎型別到 Utility Types、泛型非同步、Vue3 整合與 tsconfig 設定的完整工程師型別思維課程'
-sources: ['raw/notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維.pdf']
-created: '2026-05-10'
-updated: '2026-05-10'
+tags: ["typescript/core", "typescript/generics", "typescript/utility-types", "typescript/vue", "typescript/tsconfig", "status/draft"]
+summary: "從型別推論、unknown、泛型與 Utility Types，建立 TypeScript 與 Vue 3 的工程師型別思維。"
+sources: ["raw/notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維.md"]
+created: "2026-08-13"
+updated: "2026-08-13"
 ---
 
 # 六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維
 
 ## 摘要
 
-> 從 TypeScript 基礎型別、Utility Types、泛型非同步處理，到 Vue3 整合與 tsconfig 深度設定，建立前端工程師完整的型別思維。
+> TypeScript 的價值在編譯階段找到問題；重點不是每個值都加標註，而是知道何時讓推論工作、何時用明確型別表達設計意圖。
 
 > [!abstract] TL;DR
-> TypeScript 的核心價值在於「在編譯階段找到問題」；學習重點不是把 type 寫好寫滿，而是知道什麼時候讓 TS 自動推論、什麼時候才需要明確標注，再搭配 Utility Types 組合出乾淨的型別體系。
+> 先用具體型別與推論建立安全基礎，再以泛型、Utility Types、映射型別與 Vue 3 型別 API 組合出可重用的型別系統。
 
 ## 🎯 關鍵觀念
 
-- **型別推論優先**：「能讓 TypeScript 推論就推論，只在必要時明確標注」——避免過度工程化
-- **any vs unknown**：兩者都能接受任何值，但 `unknown` 使用前需型別檢查，是 `any` 的安全替代方案；正式環境避免用 `any`
-- **type vs interface**：`interface` 適合物件結構且會擴充的場景（支援宣告合併）；`type` 適合固定結構、聯合類型、交叉類型
-- **泛型是型別的參數**：讓同一個函式或型別可以處理多種型別，API 封裝必備
-- **Utility Types 是組合技**：`Partial`、`Required`、`Pick`、`Omit`、`Record`、`Extract`、`Exclude`、`Readonly` 組合使用，從既有型別衍生新型別，避免重複定義
-- **Vue3 + TS 整合重點**：`defineProps<T>()`、`withDefaults`、`defineEmits<T>()`、`useTemplateRef`、`InstanceType<typeof Component>`
+- 能推論就讓 TypeScript 推論，只有沒有初始值、需要公開契約或推論不足時才明確標註。
+- `unknown` 接受未知資料但使用前必須縮小型別，比跳過檢查的 `any` 安全。
+- `interface` 適合可擴充的物件契約；`type` 適合 union、intersection、固定結構與型別運算。
+- 泛型是型別參數，讓同一個函式、API wrapper 或資料結構安全地處理多種型別。
+- `Partial`、`Required`、`Pick`、`Omit`、`Record`、`Extract`、`Exclude` 與 `Readonly` 可從既有型別組合出最小必要契約。
+- Vue 3 以 `defineProps`、`defineEmits`、`useTemplateRef`、`InstanceType` 與 typed composable 把型別延伸到元件邊界。
 
 ## 🛠 實作步驟
 
-### Step 1 — 基礎型別
+### Step 1 — 從基本型別與推論開始
 
 ```ts
-// 原始類型
-const age: number = 25
-const name: string = 'Mike'
-const isActive: boolean = true
-
-// 陣列
-const nums: number[] = [1, 2, 3]
-const mixed: (number | string)[] = [1, 'a']
-
-// 物件（可選屬性 ?、可為 null）
-const user: { id: number; name?: string | null } = { id: 1 }
-
-// Tuple：固定長度與型別順序
-const point: [number, string] = [1, 'a']
-const readonly: readonly [number, string] = [1, 'a']
+const age = 25                 // 推論為 number
+let name: string               // 沒有初始值，明確宣告
+const point: [number, string] = [1, 'x']
+const values: (number | string)[] = [1, 'x']
 ```
 
+不要為已經清楚的常數重複加型別；但對外 API、空變數、複雜回傳值與團隊契約要用型別說清楚。Enum 會產生 JavaScript 輸出，Vite 專案使用時要檢查 `erasableSyntaxOnly` 設定。
+
+### Step 2 — 用 `unknown` 取代不必要的 `any`
+
 ```ts
-// Enum（推薦用字串值，避免反向映射歧義）
-enum DaysWeek {
-  Monday = 'Monday',
-  Tuesday = 'Tuesday',
+let value: unknown = getExternalValue()
+
+if (typeof value === 'string') {
+  console.log(value.toUpperCase())
 }
-
-// 數字 Enum 支援反向映射
-enum ErrorCode { NotFound = 404, Forbidden = 403 }
-console.log(ErrorCode[403]) // -> 'Forbidden'
 ```
 
-> [!warning] Vite 專案使用 Enum 需調整 tsconfig
-> Vite 預設 `erasableSyntaxOnly: true`，需改為 `false` 才能使用 Enum（因 Enum 會產生 JS 輸出）
+優先順序是具體型別、`null`、`unknown`，最後才是 `any`。外部 JSON、使用者輸入與第三方資料應先驗證或縮小，再進入業務邏輯。
 
-### Step 2 — any / unknown / null
-
-```ts
-// ✅ unknown：使用前必須做型別檢查
-let data: unknown = 'hello'
-if (typeof data === 'string') {
-  console.log(data.toUpperCase())
-}
-
-// ❌ any：跳過所有型別檢查，可能造成執行時期錯誤
-let count: any = 3
-count = '3'
-count.toFixed() // 執行時期才爆炸
-```
-
-**使用優先級：**
-1. 具體型別（`string`、`number`...）
-2. 表示空值 → `null`
-3. 未知資料 → `unknown`
-4. 最後才考慮 → `any`（只在遷移 JS 專案或極動態內容時使用）
-
-### Step 3 — type vs interface
+### Step 3 — 選擇 `type`、`interface` 並抽象函式
 
 ```ts
-// interface：適合物件結構、可擴充、支援宣告合併
-interface IBoxStyle extends IWidth, IHeight {
+interface Box extends Width, Height {
   color: string
 }
 
-// type：適合聯合類型、交叉類型、固定結構
-type TResult = string | number
-type TBoxStyle = TWidth & THeight & { color: string }
+type Result = string | number
+type BoxStyle = Width & Height & { color: string }
+
+type MathFn = (a: number, b: number) => number
+const add: MathFn = (a, b) => a + b
 ```
 
-### Step 4 — 函式型別
+物件結構且預期擴充時可用 interface；聯合、交叉或型別運算則用 type。選擇應服務於 API 清晰度，不必追求全專案只用其中一種。
+
+### Step 4 — 以泛型封裝可重用 API
 
 ```ts
-// 回傳 void（不需要 return）
-const log = (name: string): void => { console.log(name) }
-
-// 定義 function 型別
-type TMath = (a: number, b: number) => number
-const add: TMath = (a, b) => a + b
-```
-
-### Step 5 — 泛型（Generics）
-
-```ts
-// 基本泛型函式
-function getFirst<T>(arr: T[]): T { return arr[0] }
-getFirst<number>([1, 2, 3])  // -> 1
-
-// 非同步 API 封裝（重要！）
 type ApiResponse<T> = { status: number; data: T }
-type TPhoto = { url: string }
 
 async function apiRequest<T>(url: string): Promise<ApiResponse<T>> {
-  const res = await fetch(url)
-  const data = await res.json() as T
-  return { status: res.status, data }
+  const response = await fetch(url)
+  const data = await response.json() as T
+  return { status: response.status, data }
 }
 
-const { data } = await apiRequest<TPhoto[]>('https://api.example.com/photos')
+const result = await apiRequest<{ url: string }[]>('/api/photos')
 ```
 
-> [!tip] import type 強制區分
-> TypeScript 4.5+ 開啟 `verbatimModuleSyntax` 後，所有型別 import 必須加 `type`：
-> ```ts
-> import type { AxiosResponse } from 'axios'
-> import axios from 'axios'
-> ```
+泛型把「資料型別」當成參數傳入，避免每種 API 都重複寫一套 wrapper。若只是在傳遞型別而不需要執行期判斷，搭配 `import type` 與 `verbatimModuleSyntax` 保持輸出乾淨。
 
-### Step 6 — Utility Types
+### Step 5 — 用 Utility Types 組合最小契約
 
 ```ts
-type TUser = { name: string; age: number; address: string }
+type User = { name: string; age: number; address: string }
 
-// Partial：全部變可選
-const draft: Partial<TUser> = { name: 'Mike' }
-
-// Required：全部變必填
-const full: Required<TUser> = { name: 'Mike', age: 20, address: 'TW' }
-
-// Pick：挑選需要的屬性
-type TBasic = Pick<TUser, 'name' | 'age'>
-
-// Omit：排除不需要的屬性
-type TNoAge = Omit<TUser, 'age'>
-
-// Readonly：屬性只能讀取
-const locked: Readonly<TUser> = { name: 'Mike', age: 20, address: 'TW' }
-locked.name = 'X'  // ❌ 編譯錯誤
+type UserDraft = Partial<User>
+type UserSummary = Pick<User, 'name' | 'age'>
+type UserWithoutAge = Omit<User, 'age'>
+type UserMap = Record<string, UserSummary>
 ```
 
-```ts
-// Record：鎖定 key 與 value 的型別
-type TBtnKey = 'create' | 'edit' | 'success'
-const BtnMap: Record<TBtnKey, string> = { create: '新增', edit: '修改', success: '完成' }
+`Pick`/`Omit` 操作物件屬性；`Extract`/`Exclude` 操作 union 成員。用組合技表達 PATCH、公開回應、字典與權限範圍，通常比重新宣告整份型別更安全。
 
-// Extract / Exclude：操作聯合類型
-type TKeys = 'a' | 'b' | 'c'
-type TAB = Extract<TKeys, 'a' | 'b'>   // 'a' | 'b'
-type TC  = Exclude<TKeys, 'a' | 'b'>   // 'c'
+### Step 6 — 使用映射與 Template Literal Types
+
+```ts
+type State = 'Online' | 'Offline' | 'Leave'
+type StateMap = { [K in State]: string }
+
+type Color = 'black' | 'white'
+type UtilityClass = `bg-${Color}` | `text-${Color}`
 ```
 
-**Pick vs Omit vs Extract vs Exclude：**
+`keyof` 可以取得物件 key 的 union；映射型別可依 key 產生完整表格，template literal types 則能限制具規則的字串，讓 class name 或事件名稱在編譯階段被檢查。
 
-| | 操作對象 | 用途 |
-|---|---|---|
-| `Pick` | 物件型別 | 挑選屬性組成新型別 |
-| `Omit` | 物件型別 | 排除屬性組成新型別 |
-| `Extract` | 聯合型別 | 保留指定成員 |
-| `Exclude` | 聯合型別 | 移除指定成員 |
-
-### Step 7 — 映射類型與 keyof
+### Step 7 — 整合 Vue 3 元件型別
 
 ```ts
-type TStateKeys = 'Online' | 'Offline' | 'Leave'
-type TStateMap = { [K in TStateKeys]: string }
+const props = withDefaults(defineProps<{
+  name: string
+  age?: number
+}>(), { age: 0 })
 
-// keyof：取得所有屬性 key 的聯合類型
-type TUserKeys = keyof TUser  // 'name' | 'age' | 'address'
-
-// 將所有屬性的 value 型別改為 string
-type TUserStr = { [K in keyof TUser]: string }
-```
-
-### Step 8 — Template Literal Types
-
-```ts
-type TColor = 'black' | 'white' | 'pink'
-type TAtomicColor = `bg-${TColor}` | `text-${TColor}` | `border-${TColor}`
-
-const cls: TAtomicColor = 'bg-black'  // ✅
-const bad: TAtomicColor = 'bg-red'    // ❌ 編譯錯誤
-```
-
-### Step 9 — 全域 type 與 declare
-
-```ts
-// types/TGlobal.ts（全域型別，不需 import）
-declare global {
-  type TUserLogin = { email: string; password: string }
-}
-
-// declare module：為 JS 函式庫補型別
-declare module 'mike-lib' {
-  export function add(a: number, b: number): number
-}
-
-// declare module：讓 TS 識別靜態資源 import
-declare module '*.css'
-declare module 'swiper/css'
-```
-
-### Step 10 — Vue3 + TypeScript
-
-```ts
-// ref / reactive / computed
-const count = ref<number>(0)
-const user: TUser = reactive({ name: 'Mike', age: 27, email: '' })
-const title = computed<string>(() => `Hello, ${name.value}`)
-
-// Event：e.target 需斷言
-const onChange = (e: Event) => {
-  const val = (e.target as HTMLInputElement).value
-}
-
-// DOM Ref（Vue 3.5+）
-const elRef = useTemplateRef<HTMLInputElement>('inputRef')
-onMounted(() => elRef.value?.focus())
-
-// Props（泛型寫法）
-const props = defineProps<{ name: string; age?: number }>()
-
-// withDefaults（補充預設值）
-const props = withDefaults(defineProps<TUser>(), {
-  name: 'Mike',
-  info: () => ({ email: '', phone: '' }),
-})
-
-// Emit（Vue 3.3+ 簡潔寫法）
 const emit = defineEmits<{
-  activeIdx: [id: number]
   updateName: [name: string]
 }>()
 
-// Composable 的回傳型別
-import type { Ref, ComputedRef } from 'vue'
-type TCounterReturn = { count: Ref<number>; add: () => void }
-
-// InstanceType：存取子元件 expose 的方法
-import ModalComp from '@/components/Modal.vue'
-const modalRef = useTemplateRef<InstanceType<typeof ModalComp>>('modalRef')
-modalRef.value?.open()
+const input = useTemplateRef<HTMLInputElement>('input')
 ```
 
-### Step 11 — tsconfig.json 重點設定
+`ref`、`reactive`、`computed`、props、emits 與 composable 回傳值都要形成一致契約；使用 `InstanceType<typeof Component>` 取得子元件 expose 的方法時，仍需處理 ref 可能為 `null`。
+
+### Step 8 — 用 `tsconfig` 把規則固定下來
 
 ```json
 {
   "compilerOptions": {
-    "strict": true,              // 推薦開啟，啟用所有嚴格檢查
-    "noImplicitAny": true,       // 禁止隱含 any
-    "strictNullChecks": true,    // 嚴格 null 檢查
-    "lib": ["ES2022", "DOM"],    // 指定可用的內建型別
-    "target": "ES2020",          // 編譯輸出的 JS 版本
-    "moduleResolution": "node",
-    "paths": { "@/*": ["src/*"] },
-    "resolveJsonModule": true,
-    "skipLibCheck": true,        // 跳過套件型別檢查，提升速度
-    "noUnusedLocals": true,      // 未使用的變數報錯
-    "declaration": true,         // 產出 .d.ts 宣告檔案
-    "allowJs": true,             // 允許 .js 與 .ts 共存
-    "checkJs": false             // 但不對 .js 做型別檢查
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "allowJs": true,
+    "checkJs": false
   }
 }
 ```
 
-```bash
-npx tsc --noEmit      # 只做型別檢查，不輸出
-npx tsc --listFiles   # 查看哪些檔案會被編譯
-npx tsc --showConfig  # 顯示最終生效的 config
-```
+以 `npx tsc --noEmit` 做型別檢查，必要時用 `--showConfig` 確認真正生效的設定；JS/TS 混用的遷移專案可先開 `allowJs`，再逐步提高檢查範圍。
 
 ## 🧠 類比 / 觀念釐清
 
-> `any` 就像把保全撤掉——什麼人都能進來，快是快，但毫無安全感。`unknown` 則是讓保全站著，進來可以，但要先出示證件（型別檢查）。
-
-> `Partial<T>` 就像把表單所有欄位變成「非必填」；`Required<T>` 就像把所有欄位加上星號「*」。
-
-> `typeof User` 是「這個類別的藍圖（constructor）」；`InstanceType<typeof User>` 是「用這個藍圖蓋出來的房子（instance）」。
+> `any` 像撤掉保全，任何值都能直接通過；`unknown` 像保留保全，資料可以進來，但要先出示型別證件才能使用。
 
 ## 💡 實務提醒
 
-> [!tip] 型別模組化
-> 將 type 集中放在 `types/` 或 `type/` 資料夾，搭配 `import type` 引入，避免 type 散落各處難以維護
+> [!tip] 型別集中管理
+> 將共用型別放在 `types/`，使用 `import type` 引入，避免型別散落在元件內形成難以維護的隱性契約。
 
-> [!tip] 第三方套件的型別處理順序
-> 1. 套件本身有型別 → 直接用
-> 2. 去 `@types/xxx` 找 → `npm i -D @types/lodash`
-> 3. 都沒有 → 自己寫 `.d.ts` 宣告
+> [!warning] DOM API 可能回傳 null
+> `querySelector` 與 template ref 使用前要做 null 檢查；只有在存在條件已被證明時才使用 assertion。
 
-> [!warning] DOM 操作必須處理 null
-> `document.querySelector` 回傳 `Element | null`，使用前需 if 判斷或 as 斷言（只在確定存在時）
+> [!warning] 不要盲目對 reactive 加泛型
+> 深層 ref 解包可能讓 `reactive<T>()` 行為與期待不同，通常直接在變數上標註型別更容易閱讀與維護。
 
-> [!warning] reactive 不建議用泛型
-> `reactive<T>()` 的泛型在處理深層 ref 解包時行為與預期不符，建議直接在變數上標型別：`const user: TUser = reactive({...})`
+> [!tip] 第三方套件型別順序
+> 先使用套件內建型別，再查 `@types`，最後才自行提供 `.d.ts`；不要直接用 `any` 掩蓋缺少型別的問題。
 
 ## ❓ 自我檢核
 
-- [ ] `any` 與 `unknown` 的差異是什麼？各自在什麼情況下合理使用？
-- [ ] `type` 與 `interface` 各自的優勢場景是？
-- [ ] 如何用泛型封裝一個可接受不同型別回傳的 API 函式？
-- [ ] `Pick` / `Omit` 與 `Extract` / `Exclude` 的操作對象有何不同？
-- [ ] 在 Vue3 中如何從父元件呼叫子元件 `defineExpose` 的方法？
+- [ ] `any` 與 `unknown` 的差異是什麼？外部資料應優先使用哪一個？
+- [ ] `type` 與 `interface` 各適合什麼情境？
+- [ ] 如何用泛型建立可處理不同回傳型別的 API wrapper？
+- [ ] `Pick`/`Omit` 與 `Extract`/`Exclude` 的操作對象有何不同？
+- [ ] Vue 3 中如何為 props、emits 與 template ref 加上型別？
+- [ ] `strict`、`noImplicitAny` 與 `strictNullChecks` 分別防止哪類問題？
 
 ## 🔖 重要引文 / 範例
 
-> 「能讓 TypeScript 推論就推論，只在你覺得必要時明確標注」
-
-```ts
-// ✅ 讓 TS 推論（不需要多寫 : number）
-const speed = 10
-
-// ✅ 有需要才標注（沒有初始值，需先給型別）
-let age: number
-age = 12
-```
+> 能讓 TypeScript 推論就推論，只在必要時明確標注；型別是用來表達意圖，不是用來堆滿程式碼。
 
 ## 🔗 延伸閱讀
 
-- [TypeScript 官方文件](https://www.typescriptlang.org/)
-- [TypeScript Playground](https://www.typescriptlang.org/play)
-- [tsconfig 所有選項說明](https://www.typescriptlang.org/tsconfig)
-- [DefinitelyTyped（@types）](https://www.npmjs.com/~types)
-- [TS Helper Chrome 擴充套件](https://chromewebstore.google.com/detail/ts-helper/hpmhflhgjoldggdbpifnacemkankmche)
-- [JSON to TS Type（VSCode 套件）](https://marketplace.visualstudio.com/items?itemName=AbdulOwhab.json-to-ts-type)
-- [[（待補）]] TypeScript 泛型進階
-
-> [!note]- 原始課程內容摘錄
-> 講師：Mike 成智遠（雷麒科技 Senior Frontend Engineer）
-> 課程範例：https://github.com/MikeOnlineCourse/TypeScript-Live
-> 課程共四週：Week1 基礎型別 → Week2 泛型與 Utility Types → Week3 tsconfig 與第三方套件 → Week4 Vue3 整合與 AI Prompt Engineering
+- [[concepts/概念_TypeScript_Utility Types]]
+- [[sources/Note_TypeScript實戰課]]

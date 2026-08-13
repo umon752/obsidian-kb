@@ -57,3 +57,8 @@ type UserMap = Record<number, PublicUser>
 
 ## 與其他概念的關係
 - 相關筆記：[[notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維]]
+
+## 相關來源
+- [[sources/TS_basics]]
+- [[sources/TS_Zod]]
+- [[sources/Note_TypeScript實戰課]]

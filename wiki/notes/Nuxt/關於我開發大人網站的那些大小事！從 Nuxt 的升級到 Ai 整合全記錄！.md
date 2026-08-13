@@ -1,250 +1,173 @@
 ---
 type: note
 author: ai
-tags: ['nuxt', 'nuxt/upgrade', 'nuxt/performance', 'nuxt/security', 'nuxt/ai', 'unocss', 'status/draft']
-summary: '大型 Nuxt 專案從 Nuxt2 升 Nuxt3 再到 Nuxt4 的實戰紀錄，涵蓋跨站登入、效能優化、資安地雷、UnoCSS 遷移與 AI 輔助重構'
-sources: ['raw/notes/Nuxt/關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！.pdf']
-created: '2026-05-10'
-updated: '2026-05-10'
+tags: ["nuxt/upgrade", "nuxt/performance", "nuxt/security", "nuxt/ai", "css/unocss", "status/draft"]
+summary: "整理 Nuxt2 至 Nuxt4 的升級決策、資安、效能、CSS 遷移與 Spec-Driven AI 實戰。"
+sources: ["raw/notes/Nuxt/關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！.md"]
+created: "2026-08-13"
+updated: "2026-08-13"
 ---
 
 # 關於我開發大人網站的那些大小事！從 Nuxt 的升級到 Ai 整合全記錄！
 
 ## 摘要
 
-> Mike 以實際運營的成人內容平台為案例，分享 Nuxt2 → Nuxt3 → Nuxt4 升級過程中的真實決策、踩坑與解法，並帶入 AI 輔助開發的落地流程。
+> 大型 Nuxt 專案的升級不是單純換語法，而是同時處理相容性、環境變數、載入效能、路由生命週期、CSS 工具與 AI 協作邊界。
 
 > [!abstract] TL;DR
-> 大型專案升級不只是換語法，更是一連串架構決策：不用 vue-demi、善用 runtimeConfig 避免資安漏洞、以效能優化組合技提升載入速度、再以 Spec-Driven Development 讓 AI 安全介入重構。
+> 先做架構決策與資安隔離，再用 FOUC 防護、lazy loading、chunk split、preconnect 與壓縮改善效能，最後用規格驅動 AI 介入重構。
 
 ## 🎯 關鍵觀念
 
-- **升級不盲從**：Nuxt2 → Nuxt3 當時 vue-demi 橋接方案相容性問題多、測試成本高，選擇直接重寫成本反而更低
-- **資安地雷**：`vite.define: { 'process.env': process.env }` 會把所有環境變數打包進前端 bundle，敏感 token 直接裸奔
-- **效能優化是組合技**：單一手段效果有限，需同時處理 JS 按需載入、元件延遲載入、大包拆分、preconnect、靜態壓縮
-- **FOUC 問題根源**：SSR HTML 先到但 CSS chunk 還在下載，需要 critical CSS + `inlineSSRStyles` + `app-cloaked` 三管齊下
-- **Nuxt4 動態路由破壞性變更**：預設 `key` 從 `undefined` 改為 `route.fullPath`，動態路由切換時元件會完整銷毀重建
-- **AI 開發不能省規格**：「規格書先行 → AI 實作 → 驗證邏輯 → 更新文件」的 Spec-Driven 循環，是讓 AI 安全介入大型專案的關鍵
+- Nuxt2 → Nuxt3 不必盲目採用相容橋接；當 vue-demi 相容性與測試成本過高時，直接重寫可能更省。
+- `vite.define: { 'process.env': process.env }` 會把所有環境變數打包進前端，敏感 token 會直接暴露。
+- FOUC 與效能問題通常需要組合技：critical CSS、`inlineSSRStyles`、app cloak、lazy JS、元件延遲載入、chunk split、preconnect 與壓縮。
+- Nuxt4 的動態 route key 預設從 `undefined` 改為 `route.fullPath`，可能讓動態路由切換時完整銷毀與重建元件。
+- WindiCSS 遷移 UnoCSS 需要檢查 breakpoint、任意值與 pseudo-element 語法，不是單純替換套件名稱。
+- AI 能快速執行重構，但必須先有規格、邊界條件與驗證方式；文件是 AI 修改的約束。
 
 ## 🛠 實作步驟
 
-### Step 1 — 修補資安漏洞：停用 vite.define process.env
+### Step 1 — 將機密移到 runtimeConfig
 
 ```ts
-// ❌ 危險！所有 env 變數都會打包進前端
-// nuxt.config.ts
+// ❌ 不可將完整 process.env 注入前端 bundle
 vite: {
-  define: { 'process.env': process.env }
+  define: { 'process.env': process.env },
 }
-```
 
-```ts
-// ✅ 正確做法：改用 runtimeConfig 區分前後端
-// nuxt.config.ts
+// ✅ 只公開必要設定
 runtimeConfig: {
-  payToken: '',       // server only → NUXT_PAY_TOKEN
-  slackToken: '',     // server only → NUXT_SLACK_TOKEN
+  paymentToken: '',
   public: {
-    apiUrl: '',       // client + server → NUXT_PUBLIC_API_URL
-    gaId: '',         // client + server → NUXT_PUBLIC_GA_ID
-  }
-}
-```
-
-> [!warning] 任何敏感 token 絕對不能放 public
-> `runtimeConfig.public` 的值最終會出現在前端 HTML 中，金流 token、Slack webhook 等一律放外層（server-only）
-
-### Step 2 — 防止 FOUC（無樣式閃動）
-
-```ts
-// nuxt.config.ts
-vite: {
-  build: { cssCodeSplit: true },
-},
-css: [
-  '~/assets/css/critical.css',  // reset + FOUC 防護
-  '~/assets/css/style.css',
-],
-experimental: {
-  inlineSSRStyles: true,        // critical CSS 內嵌進 HTML，零延遲
-}
-app: {
-  head: {
-    htmlAttrs: { class: 'app-cloaked' },
+    apiUrl: '',
+    gaId: '',
   },
 }
 ```
 
-```css
-/* critical.css */
-html.app-cloaked #app { opacity: 0; }
-```
+`runtimeConfig.public` 會出現在 client 可取得的內容中，金流 token、Slack webhook 與其他秘密只能放 server-only 外層 key。
+
+### Step 2 — 建立 FOUC 防護
 
 ```ts
-// app.vue 或 layouts/default.vue
-onMounted(async () => {
-  await nextTick()
-  document.documentElement.classList.remove('app-cloaked')
+export default defineNuxtConfig({
+  experimental: { inlineSSRStyles: true },
+  app: {
+    head: { htmlAttrs: { class: 'app-cloaked' } },
+  },
 })
 ```
 
-### Step 3 — JS 按需載入（第三方 SDK）
+```css
+html.app-cloaked #app { opacity: 0; }
+```
+
+將 critical CSS 先載入或內嵌，等 client `onMounted` 與 `nextTick` 完成後移除 `app-cloaked`，避免 SSR HTML 已出現但 CSS chunk 尚未到達時的閃動。
+
+### Step 3 — 讓第三方 JavaScript 按需載入
 
 ```ts
-// ❌ 每頁都載入 jQuery（即使不需要）
-head: { script: [{ src: '/js/jquery.min.js', async: true }] }
-
-// ✅ 只在需要時動態載入
-const dynamicScript = (path: string) => {
+async function loadScript(src: string) {
   const script = document.createElement('script')
-  script.src = path
+  script.src = src
   document.head.appendChild(script)
-  return new Promise(resolve => { script.onload = () => resolve(script) })
-}
-
-// 在金流元件 onMounted 時才載入
-await dynamicScript('/js/jquery.min.js')
-```
-
-### Step 4 — 元件延遲載入 + 大包拆分
-
-```ts
-// 非首屏元件延遲載入
-const Serial = defineAsyncComponent(() => import('@/components/Serial/index.vue'))
-const GiftGive = defineAsyncComponent(() => import('@/components/Gift/index.vue'))
-```
-
-```ts
-// nuxt.config.ts — 大型套件獨立成 chunk
-vite: {
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('video.js'))    return 'vendor-videojs'
-          if (id.includes('hls.js'))      return 'vendor-hls'
-          if (id.includes('swiper'))      return 'vendor-swiper'
-          if (id.includes('gsap'))        return 'vendor-gsap'
-          if (id.includes('lottie-web')) return 'vendor-lottie'
-        },
-      },
-    },
-  },
-}
-
-// 套件輕量替代（以 lottie 為例）
-resolve: {
-  alias: { 'lottie-web': 'lottie-web/build/player/lottie_light.min.js' }
+  await new Promise<void>(resolve => { script.onload = () => resolve() })
 }
 ```
 
-### Step 5 — Preconnect + 靜態資源壓縮
+只在支付、影音或特定互動元件 mounted 時載入第三方 SDK，不要讓每一頁都下載不需要的 jQuery 或大型套件。
+
+### Step 4 — 延遲元件並拆分大型套件
 
 ```ts
-// nuxt.config.ts
+const Serial = defineAsyncComponent(() =>
+  import('@/components/Serial/index.vue')
+)
+```
+
+再用 Vite `manualChunks` 將 `video.js`、`hls.js`、`swiper`、`gsap` 等大型套件獨立成 chunk；必要時改用輕量 build，降低首屏 bundle。
+
+### Step 5 — 預連線與壓縮靜態資源
+
+```ts
 app: {
   head: {
     link: [
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-      { rel: 'preconnect', href: 'https://your-cdn.example.com' },
-      // 建議不超過 3~5 個，過多反而拖慢其他資源
+      { rel: 'preconnect', href: 'https://cdn.example.com' },
     ],
   },
 },
-nitro: {
-  compressPublicAssets: true,  // 自動產出 .gz 和 .br，server 依 Accept-Encoding 回傳
-}
+nitro: { compressPublicAssets: true }
 ```
 
-### Step 6 — Nuxt4 動態路由 key 問題修補
+`preconnect` 不宜無限制增加，通常只保留真正影響首屏的來源；壓縮則讓 server 依 `Accept-Encoding` 回傳 gzip 或 Brotli。
+
+### Step 6 — 處理 Nuxt4 route key 變更
 
 ```ts
-// Nuxt4 預設 key = route.fullPath，動態路由切換會銷毀重建
-// 從 Nuxt3 升上來如果不想改行為，可在頁面加：
 definePageMeta({
-  key: route => `${route.name}`,  // 用 route.name 當 key，切換參數時重用同一實例
+  key: route => `${route.name}`,
 })
 ```
 
-| | Nuxt 3 | Nuxt 4 |
-|---|---|---|
-| 預設 key | `undefined` | `route.fullPath` |
-| 動態路由換參數 | 重用同一實例 | 銷毀 + 重建 |
-| 生命週期 | 不觸發 mount/unmount | 完整 unmount → mount |
+若升級後仍需要 Nuxt3 動態路由切換時重用同一實例，可明確設定 route key；同時測試資料更新、lifecycle、快取與表單狀態是否符合預期。
 
-### Step 7 — WindiCSS → UnoCSS 遷移重點
+### Step 7 — 盤點 WindiCSS 到 UnoCSS 語法
 
 ```ts
-// uno.config.ts
 import { defineConfig, presetWind3 } from 'unocss'
+
 export default defineConfig({
-  presets: [presetWind3()],  // WindiCSS 相容預設
+  presets: [presetWind3()],
 })
 ```
 
-**語法差異注意：**
+遷移時檢查 `<sm:`/`lt-sm:`、`@lg:`/`at-lg:`、任意值中的逗號與 pseudo-element content；逐頁視覺回歸比全域取代更安全。
 
-| WindiCSS | UnoCSS |
-|---|---|
-| `<sm:p-1` | `lt-sm:p-1` |
-| `@lg:p-1` | `at-lg:p-1` |
-| `grid-cols-[1fr,10px]` | `grid-cols-[1fr_10px]`（逗號改底線）|
-| `before:content-['']` | ❌ 不支援引號，需自訂 rule |
+### Step 8 — 以 Spec-Driven Development 協作
 
-### Step 8 — AI 輔助開發流程（Spec-Driven Development）
-
-```
-1. 掃描解析舊元件（讓 AI 理解現有業務邏輯）
-2. 產出架構文件（所有狀態、業務邏輯、邊界條件）
-3. 讀取新套件文件 → 透過規格書產出實作計畫
-4. AI 實作
-5. 驗證邏輯 + 反覆提問
-6. 測試 & Code Review & 修正
-7. 上版 → 更新文件（使用文件 + 重構架構 + 修改原則）
+```text
+掃描舊元件 → 產出架構與邊界文件 → 閱讀新套件文件
+→ 形成實作計畫 → AI 實作 → 驗證與測試
+→ Code Review → 上版後更新文件
 ```
 
-> [!tip] 文件是 AI 的邊界
-> 每次新功能開發前，先讓 AI 讀取現有文件再動手。文件同時也是「修改絕對原則」，防止 AI 亂改核心邏輯
+先讓 AI 理解現有業務邏輯、狀態、邊界條件與不可改變的原則，再要求實作；不要只給一句「幫我重構」就放任修改。
 
 ## 🧠 類比 / 觀念釐清
 
-> `vite.define: process.env` 就像把辦公室保險箱密碼印在名片上發給所有人——你以為只有公司內部知道，其實任何拿到名片的人都看得到。
-
-> Spec-Driven Development 的精髓：AI 是很強的「執行者」，但需要你當「架構師」提供清晰規格，否則 AI 只是在猜你要什麼。
+> `vite.define: process.env` 像把保險箱密碼印在名片上；`runtimeConfig` 則像把只有後台人員能看的密碼放在內側抽屜，只把必要的服務地址放到前台。
 
 ## 💡 實務提醒
 
-> [!warning] Cookie 跨站共享登入的監控機制
-> 使用 `setInterval(checkCookie, 1000)` 輪詢偵測 Cookie 是否被竄改或刪除；2025 年後可改用 `window.cookieStore.addEventListener('change', ...)` 原生事件，支援度已提升
+> [!warning] 不要把 Nuxt 當高流量 REST backend
+> Nuxt server 本質是 Node.js 應用；高流量、複雜交易或長時間工作應評估獨立後端服務與佇列。
 
-> [!warning] 不要讓 Nuxt 當後端 RESTful API
-> Nuxt 的 server 本質是 Node.js，大流量下會直接出事；高流量 API 應另起專用後端服務
+> [!tip] 動態資料不存在要回 404
+> 不要只在前端隱藏空內容；server 端應用 `setResponseStatus(event, 404)` 回傳正確狀態，避免 SEO 誤判頁面存在。
 
-> [!tip] 動態路由找不到資料要回 404
-> 不要只在前端隱藏內容，應在 server 端用 `setResponseStatus(event, 404)` 設定正確 HTTP status code，否則 SEO 會誤判頁面存在
+> [!warning] cookie 跨站共享要有監控
+> 跨系統登入需處理 cookie 被刪除或竄改的情況，可從輪詢逐步改用支援度足夠的 `cookieStore` change event。
 
-> [!tip] nuxt-skill-hub
-> 安裝後執行 `nuxi prepare`，自動為 Claude Code、Cursor 等 AI coding agent 生成 Nuxt 最佳實踐的 SKILL.md，幫助 AI 正確區分 Vue 與 Nuxt 的 API 差異
+> [!tip] 文件是 AI 的邊界
+> 每次新功能前先讀取現有文件，完成後同步更新使用文件、架構與重構原則，讓下一次 AI 協作有可靠上下文。
 
 ## ❓ 自我檢核
 
-- [ ] `vite.define: process.env` 為什麼會造成資安問題？如何正確處理？
-- [ ] FOUC 的發生原因是什麼？`inlineSSRStyles` 如何解決？
-- [ ] Nuxt4 升級後動態路由的 `key` 行為改變了什麼？如何維持 Nuxt3 的行為？
-- [ ] `manualChunks` 的作用是什麼？什麼樣的套件適合獨立拆分？
-- [ ] Spec-Driven Development 的核心循環是什麼？
+- [ ] 為什麼不能用 `vite.define` 將完整 `process.env` 注入 bundle？
+- [ ] FOUC 的成因是什麼？`inlineSSRStyles` 與 app cloak 各解決哪一段？
+- [ ] Nuxt4 的 route key 變更如何影響動態頁面 lifecycle？
+- [ ] 哪些套件適合用 `manualChunks` 拆分？
+- [ ] Spec-Driven Development 的輸入、驗證與文件更新循環是什麼？
+
+## 🔖 重要引文 / 範例
+
+> AI 是很強的執行者，但需要架構師提供清楚規格；沒有規格時，AI 只是在猜測需求。
 
 ## 🔗 延伸閱讀
 
-- [[Nuxt3 高效入門全攻略]]
-- [[（待補）]] UnoCSS 完整設定指南
-- [Nuxt Hydration 文件](https://nuxt.com/docs/guide/concepts/rendering#universal-rendering)
-- [setResponseStatus API](https://nuxt.com/docs/api/utils/set-response-status)
-- [nuxt-skill-hub](https://nuxt-skill.onmax.me/)
-- [media-chrome](https://www.media-chrome.org/)
-
-> [!note]- 原始課程內容摘錄
-> 講師：Mike 成智遠（雷麒科技 Senior Frontend Engineer）
-> 場合：技術分享演講（含 Vue.js Taiwan v-conf 2026 社群公告段落）
-> 技術棧演進：Nuxt2 + Vuex + WindiCSS → Nuxt3 + Pinia + UnoCSS → Nuxt4 + AI
-> 平台規模：Studio（創作者）/ Admin（後台）/ Event（活動）三套系統共享登入與金流
+- [[entities/工具_Nuxt]]
+- [[concepts/概念_AI工具安全規範]]
+- [[sources/Note_Nuxt升級與AI整合]]

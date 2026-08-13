@@ -47,3 +47,24 @@ _(紀錄從此開始)_
 ## [2026-05-29] gn notes | raw/安裝/AI 安全設定檔.md → wiki/notes/安裝/AI安全設定檔.md
 - 新增：AI安全設定檔
 - 重點：整理 Claude Code、Cursor 與 Codex 的全域安全設定、sandbox、ignore 檔與權限規則
+
+## [2026-06-14] gn notes | raw/notes/Nuxt/Socket 即時資料治理.md + .pdf → wiki/notes/Nuxt/Socket 即時資料治理.md
+- 新增：Socket 即時資料治理
+- 重點：realtime owner 選舉、BroadcastChannel 跨分頁協調、K 線無縫銜接、CRUD refetch storm 與後端連線政策
+
+## [2026-06-15] gn notes | raw/notes/Nuxt/深潛 Vue 3 響應式系統：解析依賴追蹤與效能設計.md → wiki/notes/Nuxt/深潛 Vue 3 響應式系統：解析依賴追蹤與效能設計.md
+- 新增：深潛 Vue 3 響應式系統：解析依賴追蹤與效能設計
+- 重點：effect 執行上下文、track/trigger、動態依賴清理、雙向鏈結串列與巢狀 effect
+
+## [2026-08-13] ingest | raw/ → wiki/sources/（94 個新素材）
+- 新增：94 個 source 頁面，涵蓋 AI、CSS、Docker、GEO、HTML、JavaScript、Nuxt、React、SEO、TypeScript、notes、無障礙與課程
+- 新增關聯頁面：[[entities/工具_Docker]]、[[entities/工具_Nuxt]]
+- 更新：[[wiki/index]]、Figma、AI 工具安全、Nuxt、TypeScript 與無障礙相關頁面的來源連結
+- 略過：24 個已存在且未修改的 source 對應；檔名或資料夾以 `_` 開頭的 raw 素材未納入
+- 重點：完成本次確認清單的批次匯入，並以 source 頁保留每個原始素材的精簡摘要與精確來源路徑
+
+## [2026-08-13] gn notes | raw/notes/ → wiki/notes/（8 個學習單）
+- 新增：8 份學習單，鏡像至 `wiki/notes/` 的 AI、Nuxt、TS 與安裝子路徑
+- 更新：[[wiki/index]] 的 Notes 索引
+- 保留：`wiki/notes 1/` 未納入處理，避免將錯誤命名資料夾當成正式輸出來源
+- 重點：整理 Skill、Nuxt、Socket、SSR、Vue 3 響應式、TypeScript 與 AI 安全設定的摘要、實作步驟與自我檢核

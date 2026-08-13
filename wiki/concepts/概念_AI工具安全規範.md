@@ -31,3 +31,4 @@ updated: "2026-05-01"
 
 ## 相關來源
 - [[sources/AI安全設定檔]]
+- [[sources/Note_AI安全設定檔]]
