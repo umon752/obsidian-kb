@@ -68,3 +68,10 @@ _(紀錄從此開始)_
 - 更新：[[wiki/index]] 的 Notes 索引
 - 保留：`wiki/notes 1/` 未納入處理，避免將錯誤命名資料夾當成正式輸出來源
 - 重點：整理 Skill、Nuxt、Socket、SSR、Vue 3 響應式、TypeScript 與 AI 安全設定的摘要、實作步驟與自我檢核
+
+## [2026-09-10] ingest | raw/ → wiki/sources/
+- 新增：[[sources/Linux指令整理]]
+- 更新：[[sources/Git設定]]（`raw/安裝/Git.md` 已修改）
+- 更新：[[wiki/index]]
+- 略過：113 個未變更素材，以及 4 個檔名或資料夾以 `_` 開頭的素材
+- 重點：補充 Linux 指令、Ubuntu container 與 Docker 環境驗收流程，並同步 Git source 的更新日期

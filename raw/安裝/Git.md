@@ -1,6 +1,6 @@
 # Git
 
-.gitconfig：
+.gitconfig 設定：
 
 ```
 [alias]
