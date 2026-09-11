@@ -1,6 +1,10 @@
 {
   "recentFiles": [
     {
+      "basename": "實現",
+      "path": "raw/_待辦任務/實現.md"
+    },
+    {
       "basename": "六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維",
       "path": "wiki/notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維.md"
     },
@@ -11,10 +15,6 @@
     {
       "basename": "README",
       "path": "README.md"
-    },
-    {
-      "basename": "實現",
-      "path": "raw/_待辦任務/實現.md"
     },
     {
       "basename": "debug",
