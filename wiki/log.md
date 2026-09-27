@@ -75,3 +75,12 @@ _(紀錄從此開始)_
 - 更新：[[wiki/index]]
 - 略過：113 個未變更素材，以及 4 個檔名或資料夾以 `_` 開頭的素材
 - 重點：補充 Linux 指令、Ubuntu container 與 Docker 環境驗收流程，並同步 Git source 的更新日期
+
+## [2026-09-28] ingest | raw/AI SEO/a2ui_a2a.md、raw/AI/impeccable-quick-guide.md → wiki/
+- 新增 sources：[[sources/A2UI_A2A技術指南]]、[[sources/Impeccable快速使用指南]]
+- 新增 concepts：[[concepts/概念_A2UI宣告式介面]]、[[concepts/概念_A2A代理互通]]
+- 新增 entity：[[entities/工具_Impeccable]]
+- 新增 guide：[[guides/操作_Impeccable快速使用]]
+- 更新來源路徑：[[sources/GEO_Agentic Browsing與llms.txt]]、[[sources/GEO_生成式引擎優化]]、[[sources/GEO_PageSpeed分數與AI引用]]（素材與附件搬移，內容相同）
+- 更新：[[wiki/index]]；略過 112 個未變更且已有對應來源頁的素材
+- 重點：整理代理介面與代理互通概念，並建立 Impeccable 操作指引；A2UI/A2A 的平台、安全與計費細節保留待驗證狀態

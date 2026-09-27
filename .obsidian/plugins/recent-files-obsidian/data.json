@@ -1,16 +1,28 @@
 {
   "recentFiles": [
     {
+      "basename": "schema",
+      "path": "schema.md"
+    },
+    {
+      "basename": "a2ui_a2a",
+      "path": "raw/AI SEO/a2ui_a2a.md"
+    },
+    {
+      "basename": "impeccable-quick-guide",
+      "path": "raw/AI/impeccable-quick-guide.md"
+    },
+    {
+      "basename": "AI",
+      "path": "raw/快捷鍵集/AI.md"
+    },
+    {
       "basename": "實現",
       "path": "raw/_待辦任務/實現.md"
     },
     {
       "basename": "六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維",
       "path": "wiki/notes/TS/六角學院 ＆ TypeScript 實戰課 - 打造工程師型別思維.md"
-    },
-    {
-      "basename": "schema",
-      "path": "schema.md"
     },
     {
       "basename": "README",
@@ -35,10 +47,6 @@
     {
       "basename": "PWA",
       "path": "raw/Nuxt/PWA.md"
-    },
-    {
-      "basename": "Agentic_Browsing_與_llms.txt_重點整理",
-      "path": "raw/GEO/Agentic_Browsing_與_llms.txt_重點整理.md"
     },
     {
       "basename": "深潛 Vue 3 響應式系統：解析依賴追蹤與效能設計",

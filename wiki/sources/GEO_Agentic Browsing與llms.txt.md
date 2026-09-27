@@ -3,9 +3,9 @@ type: source
 author: ai
 tags: ["domain/seo", "domain/ai", "topic/geo", "topic/agentic-browsing", "status/draft"]
 summary: "整理 Agentic Browsing、llms.txt、WebMCP、Accessibility Tree 與 CLS 對 Agent Ready 的影響"
-sources: ["raw/GEO/Agentic_Browsing_與_llms.txt_重點整理.md"]
+sources: ["raw/AI SEO/Agentic_Browsing_與_llms.txt_重點整理.md"]
 created: "2026-08-13"
-updated: "2026-08-13"
+updated: "2026-09-28"
 ---
 
 # Agentic Browsing 與 llms.txt

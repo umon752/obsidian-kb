@@ -3,9 +3,9 @@ type: source
 author: ai
 tags: ["domain/seo", "domain/frontend", "topic/geo", "topic/performance", "status/draft"]
 summary: "說明 AI 代理瀏覽的 WebMCP、INP、DOM、Long Task、語意化 HTML 與 CLS 效能要求"
-sources: ["raw/GEO/PageSpeed 分數與 AI 引用.md"]
+sources: ["raw/AI SEO/PageSpeed 分數與 AI 引用.md"]
 created: "2026-08-13"
-updated: "2026-08-13"
+updated: "2026-09-28"
 ---
 
 # PageSpeed 分數與 AI 引用

@@ -20,6 +20,7 @@
 | [[entities/工具_Laravel]] | PHP MVC 框架，Blade 模板引擎 |
 | [[entities/工具_Docker]] | 以容器封裝應用程式與依賴的開發與部署工具 |
 | [[entities/工具_Nuxt]] | Vue 全端框架，提供 SSR、路由、SEO 與 Nitro server |
+| [[entities/工具_Impeccable]] | 透過 slash commands 支援產品脈絡整理與 UI 設計調整工作流程 |
 
 ---
 
@@ -36,6 +37,8 @@
 | [[concepts/概念_弱點掃描CSP規範]] | CSP meta 設定與前端弱點掃描合規要點 |
 | [[concepts/概念_無障礙設計規範]] | WCAG 無障礙設計原則與前端實作要點 |
 | [[concepts/概念_網頁設計規範]] | 前端切版與設計稿執行的基本規範原則 |
+| [[concepts/概念_A2UI宣告式介面]] | 以宣告式資料描述代理生成介面，由客戶端 renderer 控制呈現 |
+| [[concepts/概念_A2A代理互通]] | AI 代理之間的通訊與任務協作概念，具體能力依實作驗證 |
 
 ---
 
@@ -176,6 +179,13 @@
 |------|----------|------|
 | [[sources/Linux指令整理]] | reference | Linux 指令、Ubuntu 容器與 Docker 環境驗收流程 |
 
+### 2026-09-28 本次匯入
+
+| 頁面 | 來源類型 | 摘要 |
+|------|----------|------|
+| [[sources/A2UI_A2A技術指南]] | reference | A2UI 介面資料流、A2A 代理通訊與跨平台策略；平台細節待查證 |
+| [[sources/Impeccable快速使用指南]] | guide | Impeccable 指令工作流程與 UI 設計檢查方式 |
+
 ---
 
 ## Guides（設定 / 操作指南）
@@ -193,6 +203,7 @@
 | [[guides/弱點掃描前端規範]] | 前端弱點掃描合規 SOP：CSP 設定、nonce 加入、禁用項目清單 |
 | [[guides/設定_Sitemap網站擁有權認證]] | Sitemap 部署與 Google 網站擁有權認證（FTP 操作） |
 | [[guides/CSS_文字外框技巧]] | CSS 純文字外框效果的幾種實作方式比較 |
+| [[guides/操作_Impeccable快速使用]] | Impeccable 產品文件、設計調整、檢討與驗收流程 |
 
 ---
 

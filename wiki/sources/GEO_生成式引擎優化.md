@@ -3,9 +3,9 @@ type: source
 author: ai
 tags: ["domain/seo", "domain/ai", "topic/geo", "topic/lighthouse", "status/draft"]
 summary: "整理 GEO 內容優化、FAQ、Google 商家與 Lighthouse 13.3 Agentic Browsing 稽核方向"
-sources: ["raw/GEO/GEO（Generative Engine Optimization）/GEO（Generative Engine Optimization）.md"]
+sources: ["raw/AI SEO/GEO（Generative Engine Optimization）/GEO（Generative Engine Optimization）.md"]
 created: "2026-08-13"
-updated: "2026-08-13"
+updated: "2026-09-28"
 ---
 
 # GEO（Generative Engine Optimization）
